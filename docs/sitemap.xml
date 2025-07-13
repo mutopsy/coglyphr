@@ -1,10 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/reference/contourCOG.html</loc></url>
-<url><loc>/reference/hello.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/404.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/authors.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/index.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/LICENSE-text.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/reference/contourCOG.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/reference/hello.html</loc></url>
+<url><loc>https://github.com/mutopsy/coglyphr/reference/index.html</loc></url>
 </urlset>
 
