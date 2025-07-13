@@ -42,5 +42,5 @@ library(coglyphr)
 ## Version History
 
 ### v0.0.0.9000 (2025-07-13)   
-- Developer version.
+- Initial developer version
 
