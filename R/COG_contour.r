@@ -32,7 +32,7 @@
 #' @import tidyr
 #' @export
 
-contourCOG <- function(img, origin = c("bottomleft", "topleft")){
+COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
