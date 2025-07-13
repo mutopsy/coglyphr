@@ -32,16 +32,6 @@
 #' @import tidyr
 #' @export
 
-utils::globalVariables(
-  c("cc", "value", "y", "x", "height", "width", "angle", "distance",
-    "xmin", "xmax", "ymin", "ymax", "inc", "center_x", "margin_left",
-    "center_y", "margin_top", "margin_right", "height_original", "margin_bottom",
-    "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_y_std",
-    "width_original"
-    )
-  )
-
-
 contourCOG <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
@@ -211,4 +201,14 @@ contourCOG <- function(img, origin = c("bottomleft", "topleft")){
 
   return(out)
 }
+
+
+utils::globalVariables(
+  c("cc", "value", "y", "x", "height", "width", "angle", "distance",
+    "xmin", "xmax", "ymin", "ymax", "inc", "center_x", "margin_left",
+    "center_y", "margin_top", "margin_right", "height_original", "margin_bottom",
+    "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_y_std",
+    "width_original"
+  )
+)
 
