@@ -22,6 +22,7 @@
 #' @import tidyr
 #' @export
 
+
 COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
@@ -108,7 +109,7 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   out <- list(
     statistics = statistics,
-    strokes = im.dat.stroke
+    strokes = im.dat.stroke %>% dplyr::select(-cc)
   )
 
   return(out)
