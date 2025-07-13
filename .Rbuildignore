@@ -1,2 +1,3 @@
-^.*\.Rproj$
+^mutolabr\.Rproj$
 ^\.Rproj\.user$
+^develop/
