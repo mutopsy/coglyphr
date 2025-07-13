@@ -47,7 +47,7 @@ rsconnect/
 .Rproj.user
 
 # Others
-^mutolabr\.Rproj$
+^coglyphr\.Rproj$
 ^\.Rproj\.user$
 develop/
 *.Rproj
