@@ -2,6 +2,7 @@
 
 export(COG_contour)
 export(COG_potential)
+export(COG_stroke)
 import(dplyr)
 import(tidyr)
 importFrom(imager,load.image)

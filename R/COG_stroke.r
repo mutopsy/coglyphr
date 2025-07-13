@@ -1,10 +1,7 @@
-#' Compute Contour-Based Center of Gravity (COG) from Convex Polygon
+#' Compute Stroke-Based Center of Gravity (COG)
 #'
-#' Calculates the center of gravity (COG) of a character-like binary image based on its outer contour.
-#' This function implements the method proposed by Kotani and colleagues (2004, 2011), in which the COG
-#' is computed as the geometric center of the smallest convex polygon (convex hull) that encloses the
-#' character region. The outer contour is traced counterclockwise starting from the bottommost-leftmost pixel,
-#' and the resulting closed shape is filled to compute its centroid.
+#' Computes the center of gravity (COG) of a character-like binary image using its stroke region.
+#' The COG is defined as the mean of the (x, y) coordinates of all non-white pixels.
 #'
 #' @param img An image input, either a file path to an image file (e.g., PNG, JPEG),
 #'   or a \code{cimg} object from the \pkg{imager} package. The image should be in binary form,
@@ -16,23 +13,16 @@
 #' @return A list containing:
 #' \describe{
 #'   \item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-#'     margins around the glyph, and original image dimensions. The center is calculated as the centroid of the
-#'     smallest convex polygon enclosing the glyph region.}
-#'   \item{\code{points}}{A data frame of (x, y) coordinates representing the contour points of the convex polygon.}
+#'     margins around the glyph, and original image dimensions. The center is calculated based on the stroke region}
+#'   \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke (non-white) region.}
 #' }
 #'
-#' @references
-#' Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. \emph{Memoirs of Shonan Institute of Technology}, \strong{45}(1), 23–33. \url{https://shonan-it.repo.nii.ac.jp/?action=repository_view_main_item_detail&item_id=368}
-#'
-#' Kotani, A., Asai, Y., Nakamura, Y., Otuka, M., Mituyama, Y., & Onoye, T. (2004). Contour-based evaluation method of center of gravity on “LCFONT.” \emph{IPSJ SIG Technical Report}, \strong{115}, 63–70. \url{https://ipsj.ixsq.nii.ac.jp/records/36793}
-#'
 #' @importFrom imager load.image
-#' @importFrom sp point.in.polygon
 #' @import dplyr
 #' @import tidyr
 #' @export
 
-COG_contour <- function(img, origin = c("bottomleft", "topleft")){
+COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
@@ -62,69 +52,6 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
     dplyr::filter(value != 1) %>%
     dplyr::mutate(value = 0)
 
-  # Initialization of points ------------------------
-
-  points <- data.frame(
-    x = NA,
-    y = NA,
-    angle = NA
-  )
-
-  # Point 0 ------------------------
-
-  point_0 <- im.dat.stroke %>%
-    dplyr::filter(y == max(y)) %>%
-    dplyr::filter(x == min(x))
-
-  points[1,] <- c(point_0$x, point_0$y, 0)
-
-  # Point i ------------------------
-
-  ## Initialization ------------------------
-
-  theta <- 0
-  i <- 0
-  init <- points[1,]
-  ref <- points[1,]
-  is_end <- 0
-
-  ## Loop ------------------------
-
-  while(is_end == 0){
-    check <- im.dat.stroke %>%
-      dplyr::filter(x != ref$x | y != ref$y) %>%
-      dplyr::mutate(
-        height = ref$y - y,
-        width = x - ref$x,
-        slope = height/width,
-        angle = atan2(height, width),
-        angle = (angle + 2 * pi) %% (2 * pi)
-      ) %>%
-      dplyr::filter(angle >= theta) %>%
-      dplyr::filter(angle == min(angle)) %>%
-      dplyr::mutate(
-        distance = sqrt(height^2 + width^2)
-      ) %>%
-      dplyr::filter(distance == max(distance))
-
-    i <- i + 1
-
-    if(i > 10000){
-      warnings("Too long attempts!")
-      is_end <- 1
-    }
-
-    if(check$x == init$x & check$y == init$y){
-      is_end <- 1
-    } else{
-      theta <- check$angle[1]
-      ref <- check %>% dplyr::select(x,y, angle) %>% dplyr::slice(1)
-
-      points <- points %>%
-        dplyr::bind_rows(ref)
-    }
-  }
-
   # Margin ------------------------
 
   size_original <- dim(im)[1:2]
@@ -145,22 +72,7 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   # Calculate area and COG ------------------------
 
-  tmp <- list(
-    x = 1:size_original[1],
-    y = 1:size_original[2],
-    cc = 1:3
-  ) %>%
-    expand.grid() %>%
-    dplyr::mutate(value = 1) %>%
-    dplyr::mutate(
-      inc = sp::point.in.polygon(
-        x, y, points$x, points$y
-      ),
-      value = if_else(inc >= 1, 0, 1)
-    ) %>%
-    dplyr::filter(value == 0)
-
-  statistics <- tmp %>%
+  statistics <- im.dat.stroke %>%
     dplyr::summarise(
       center_x = mean(x), # left = 0, right = 1
       center_y = mean(y), # top = 0, bottom = 1
@@ -196,7 +108,7 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   out <- list(
     statistics = statistics,
-    points = points
+    strokes = im.dat.stroke
   )
 
   return(out)
