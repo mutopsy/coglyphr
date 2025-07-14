@@ -1,6 +1,6 @@
 Package: coglyphr
 Title: Compute Glyph Centroids from Image Data
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Hiroyuki", "Muto", , "mutopsy@omu.ac.jp", role = c("aut", "cre"))
 Description: Computes the center of gravity (COG) of character-like binary images using various methods. This package provides functions for estimating stroke-based COG, contour-based COG, and potential energy-based COG. It is useful for analyzing glyph structure in image-based research on cognition and perception. 
