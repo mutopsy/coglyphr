@@ -17,6 +17,11 @@
 #'   \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke (non-white) region.}
 #' }
 #'
+#' @examples
+#' \dontrun{
+#'   COG_stroke(img_A, origin = "bottomleft")
+#' }
+#'
 #' @importFrom imager load.image
 #' @import dplyr
 #' @import tidyr
@@ -109,7 +114,8 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   out <- list(
     statistics = statistics,
-    strokes = im.dat.stroke %>% dplyr::select(-cc)
+    strokes = im.dat.stroke %>% dplyr::select(-cc),
+    origin = origin
   )
 
   return(out)

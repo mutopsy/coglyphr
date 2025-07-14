@@ -20,14 +20,17 @@
 #'   draw_potential(result, show_cog = TRUE)
 #' }
 #'
+#' @seealso \code{\link{COG_potential}}
+#'
 #' @importFrom dplyr mutate if_else select
-#' @importFrom imager as.cimg plot
+#' @importFrom imager as.cimg
 #' @importFrom utils head
 #' @export
 
 draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
   statistics <- lst$statistics
   potentials <- lst$potentials %>% dplyr::select(x,y,value)
+  origin <- lst$origin
 
   cog <- c(statistics$center_x, statistics$center_y) %>% round()
 
@@ -43,6 +46,10 @@ draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
     )
 
   if(show_cog){
+    if(origin == "bottomleft"){
+      cog[2] <- statistics$height_original - cog[2]
+    }
+
     out <- out %>%
       dplyr::mutate(
         value = if_else(x == cog[1]&cc==1, 1, value),

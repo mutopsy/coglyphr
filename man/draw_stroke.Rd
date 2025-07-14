@@ -32,3 +32,6 @@ center of gravity (COG) position.
 }
 
 }
+\seealso{
+\code{\link{COG_stroke}}
+}

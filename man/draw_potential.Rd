@@ -32,3 +32,6 @@ Optionally overlays crosshair lines at the computed COG to indicate its position
 }
 
 }
+\seealso{
+\code{\link{COG_potential}}
+}

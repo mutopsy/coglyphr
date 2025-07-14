@@ -20,13 +20,16 @@
 #'   draw_stroke(result, show_cog = TRUE)
 #' }
 #'
+#' @seealso \code{\link{COG_stroke}}
+#'
 #' @importFrom dplyr left_join mutate if_else
-#' @importFrom imager as.cimg plot
+#' @importFrom imager as.cimg
 #' @export
 
 draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
   statistics <- lst$statistics
   strokes <- lst$strokes
+  origin <- lst$origin
 
   cog <- c(statistics$center_x, statistics$center_y) %>% round()
 
@@ -40,6 +43,10 @@ draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
     dplyr::mutate(value = if_else(is.na(value), 1, 0))
 
   if(show_cog){
+    if(origin == "bottomleft"){
+      cog[2] <- statistics$height_original - cog[2]
+    }
+
     out <- out %>%
       dplyr::mutate(
         value = if_else(x == cog[1]&cc==1, 1, value),

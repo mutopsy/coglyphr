@@ -33,6 +33,12 @@ that encloses the character region. Each pixel in the stroke region is treated a
 The potential at each pixel is computed as the sum of the inverses of the distances between that pixel
 and all pixels in the stroke region.
 }
+\examples{
+\dontrun{
+  COG_potential(img_A, origin = "bottomleft")
+}
+
+}
 \references{
 Kotani, A., Tanemura, Y., Mitsuyama, Y., Asai, Y., Nakamura, Y., & Onoye, T. (2006). Potential energy-based center of gravity evaluation of characters. \emph{The Journal of the Institute of Image Electronics Engineers of Japan}, \strong{35}(4), 296–305. \url{https://doi.org/10.11371/iieej.35.296}
 }

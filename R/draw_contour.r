@@ -18,14 +18,18 @@
 #'   result <- COG_contour(img_A)
 #'   draw_contour(result, show_cog = TRUE)
 #' }
+#'
+#' @seealso \code{\link{COG_contour}}
+#'
 #' @importFrom dplyr mutate if_else
 #' @importFrom sp point.in.polygon
-#' @importFrom imager as.cimg plot
+#' @importFrom imager as.cimg
 #' @export
 
 draw_contour <- function(lst, show_cog = TRUE, plot_image = TRUE){
   statistics <- lst$statistics
   points <- lst$points %>% dplyr::select(x,y)
+  origin <- lst$origin
 
   cog <- c(statistics$center_x, statistics$center_y) %>% round()
 
@@ -45,6 +49,10 @@ draw_contour <- function(lst, show_cog = TRUE, plot_image = TRUE){
     dplyr::select(-inc)
 
   if(show_cog){
+    if(origin == "bottomleft"){
+      cog[2] <- statistics$height_original - cog[2]
+    }
+
     out <- out %>%
       dplyr::mutate(
         value = if_else(x == cog[1]&cc==1, 1, value),

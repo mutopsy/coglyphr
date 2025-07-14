@@ -29,4 +29,8 @@ Optionally overlays crosshair lines at the computed center of gravity (COG) to a
   result <- COG_contour(img_A)
   draw_contour(result, show_cog = TRUE)
 }
+
+}
+\seealso{
+\code{\link{COG_contour}}
 }

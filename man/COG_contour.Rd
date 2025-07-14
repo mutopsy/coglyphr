@@ -31,6 +31,12 @@ is computed as the geometric center of the smallest convex polygon (convex hull)
 character region. The outer contour is traced counterclockwise starting from the bottommost-leftmost pixel,
 and the resulting closed shape is filled to compute its centroid.
 }
+\examples{
+\dontrun{
+  COG_contour(img_A, origin = "bottomleft")
+}
+
+}
 \references{
 Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. \emph{Memoirs of Shonan Institute of Technology}, \strong{45}(1), 23–33. \url{https://shonan-it.repo.nii.ac.jp/?action=repository_view_main_item_detail&item_id=368}
 

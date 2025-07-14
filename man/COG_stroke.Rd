@@ -27,3 +27,9 @@ margins around the glyph, and original image dimensions. The center is calculate
 Computes the center of gravity (COG) of a character-like binary image using its stroke region.
 The COG is defined as the mean of the (x, y) coordinates of all non-white pixels.
 }
+\examples{
+\dontrun{
+  COG_stroke(img_A, origin = "bottomleft")
+}
+
+}
