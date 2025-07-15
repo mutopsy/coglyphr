@@ -6,9 +6,9 @@
 
 The current version supports the following COG computation methods:
 
-* Stroke-based COG (`COG_stroke`)  
-* Contour-based COG (`COG_contour`), based on the method proposed by Kotani and colleagues (2004, 2011)  
-* Potential energy-based COG (`COG_potential`), based on the method proposed by Kotani and colleagues (2006)
+* Stroke-based COG (`cog_stroke`)  
+* Contour-based COG (`cog_contour`), based on the method proposed by Kotani and colleagues (2004, 2011)  
+* Potential energy-based COG (`cog_potential`), based on the method proposed by Kotani and colleagues (2006)
 
 For details on each function, refer to [the function references](https://mutopsy.github.io/coglyphr/reference/).
 
@@ -29,7 +29,6 @@ devtools::install_github("mutopsy/coglyphr")
 This package requires:  
 * R (>= 4.4.0)  
 * `dplyr`  
-* `tidyr`  
 * `imager`  
 * `sp`
 
