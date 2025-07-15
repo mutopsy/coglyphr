@@ -1,4 +1,4 @@
-# coglyphr: Compute the Center of Gravity of Glyphs from Image Data
+# coglyphr: Compute Glyph Centers of Gravity from Image Data
 
 ## Overview
 
