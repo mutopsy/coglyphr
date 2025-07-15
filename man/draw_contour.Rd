@@ -7,7 +7,7 @@
 draw_contour(lst, show_cog = TRUE, plot_image = TRUE)
 }
 \arguments{
-\item{lst}{A list returned by \code{\link{COG_contour}}, containing
+\item{lst}{A list returned by \code{\link{cog_contour}}, containing
 a data frame of polygon points and computed statistics.}
 
 \item{show_cog}{Logical. If \code{TRUE} (default), draws horizontal and vertical
@@ -21,16 +21,16 @@ An object of class \code{cimg} representing the polygon-filled image
 (with or without COG lines), which can be further used or saved.
 }
 \description{
-Visualizes the character region enclosed by the convex polygon computed using \code{\link{COG_contour}}.
+Visualizes the character region enclosed by the convex polygon computed using \code{\link{cog_contour}}.
 Optionally overlays crosshair lines at the computed center of gravity (COG) to aid interpretation.
 }
 \examples{
 \dontrun{
-  result <- COG_contour(img_A)
+  result <- cog_contour(img_A)
   draw_contour(result, show_cog = TRUE)
 }
 
 }
 \seealso{
-\code{\link{COG_contour}}
+\code{\link{cog_contour}}
 }

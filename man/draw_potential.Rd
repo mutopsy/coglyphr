@@ -7,7 +7,7 @@
 draw_potential(lst, show_cog = TRUE, plot_image = TRUE)
 }
 \arguments{
-\item{lst}{A list returned by \code{\link{COG_potential}}, containing
+\item{lst}{A list returned by \code{\link{cog_potential}}, containing
 a data frame of normalized potentials and computed statistics.}
 
 \item{show_cog}{Logical. If \code{TRUE} (default), draws horizontal and vertical
@@ -21,17 +21,17 @@ An object of class \code{cimg} representing the potential field image,
 optionally overlaid with COG crosshair lines.
 }
 \description{
-Visualizes the normalized potential field and center of gravity (COG) computed by \code{\link{COG_potential}}.
+Visualizes the normalized potential field and center of gravity (COG) computed by \code{\link{cog_potential}}.
 Each pixel's potential is shown as grayscale intensity, where darker pixels indicate higher potential.
 Optionally overlays crosshair lines at the computed COG to indicate its position.
 }
 \examples{
 \dontrun{
-  result <- COG_potential(img_A)
+  result <- cog_potential(img_A)
   draw_potential(result, show_cog = TRUE)
 }
 
 }
 \seealso{
-\code{\link{COG_potential}}
+\code{\link{cog_potential}}
 }

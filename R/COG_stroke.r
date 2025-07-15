@@ -19,16 +19,15 @@
 #'
 #' @examples
 #' \dontrun{
-#'   COG_stroke(img_A, origin = "bottomleft")
+#'   cog_stroke(img_A, origin = "bottomleft")
 #' }
 #'
 #' @importFrom imager load.image
 #' @import dplyr
-#' @import tidyr
 #' @export
 
 
-COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
+cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
@@ -50,25 +49,25 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Transform to data frame format ------------------------
 
-  im.dat <- im %>% as.data.frame() %>% dplyr::filter(cc == 1)
+  im.dat <- im |> as.data.frame() |> dplyr::filter(cc == 1)
 
   # Extract the non-white region ------------------------
 
-  im.dat.stroke <- im.dat %>%
-    dplyr::filter(value != 1) %>%
+  im.dat.stroke <- im.dat |>
+    dplyr::filter(value != 1) |>
     dplyr::mutate(value = 0)
 
   # Margin ------------------------
 
   size_original <- dim(im)[1:2]
 
-  margin <- im.dat.stroke %>%
+  margin <- im.dat.stroke |>
     dplyr::summarise(
       xmin = min(x),
       xmax = max(x),
       ymin = min(y),
       ymax = max(y)
-    ) %>%
+    ) |>
     dplyr::mutate(
       margin_left = xmin - 1,
       margin_right = size_original[1] - xmax,
@@ -78,12 +77,12 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Calculate area and COG ------------------------
 
-  statistics <- im.dat.stroke %>%
+  statistics <- im.dat.stroke |>
     dplyr::summarise(
       center_x = mean(x), # left = 0, right = 1
       center_y = mean(y), # top = 0, bottom = 1
       area = n()
-    ) %>%
+    ) |>
     dplyr::mutate(
       margin_left = margin$margin_left,
       margin_right = margin$margin_right,
@@ -91,20 +90,20 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
       margin_bottom = margin$margin_bottom,
       width_original = size_original[1],
       height_original = size_original[2]
-    ) %>%
+    ) |>
     dplyr::mutate(
       center_x_trim = center_x - margin_left, # left = 0, right = 1
       center_y_trim = center_y - margin_top, # top = 0, bottom = 1
       width_trim = width_original - margin_left - margin_right,
       height_trim = height_original - margin_top - margin_bottom,
-    ) %>%
+    ) |>
     dplyr::mutate(
       center_x_std = center_x_trim / width_trim, # left = 0, right = 1
       center_y_std = center_y_trim / height_trim # top = 0, bottom = 1
     )
 
   if(origin == "bottomleft"){
-    statistics <- statistics %>%
+    statistics <- statistics |>
       dplyr::mutate(
         center_y = size_original[2] - center_y, # bottom = 0, top = 1
         center_y_trim = height_trim - center_y_trim, # bottom = 0, top = 1
@@ -114,7 +113,7 @@ COG_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   out <- list(
     statistics = statistics,
-    strokes = im.dat.stroke %>% dplyr::select(-cc),
+    strokes = im.dat.stroke |> dplyr::select(-cc),
     origin = origin
   )
 

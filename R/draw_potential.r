@@ -1,10 +1,10 @@
 #' Visualize Potential-Based Center of Gravity (COG) and Potential Field
 #'
-#' Visualizes the normalized potential field and center of gravity (COG) computed by \code{\link{COG_potential}}.
+#' Visualizes the normalized potential field and center of gravity (COG) computed by \code{\link{cog_potential}}.
 #' Each pixel's potential is shown as grayscale intensity, where darker pixels indicate higher potential.
 #' Optionally overlays crosshair lines at the computed COG to indicate its position.
 #'
-#' @param lst A list returned by \code{\link{COG_potential}}, containing
+#' @param lst A list returned by \code{\link{cog_potential}}, containing
 #'   a data frame of normalized potentials and computed statistics.
 #' @param show_cog Logical. If \code{TRUE} (default), draws horizontal and vertical
 #'   red lines through the COG.
@@ -16,11 +16,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   result <- COG_potential(img_A)
+#'   result <- cog_potential(img_A)
 #'   draw_potential(result, show_cog = TRUE)
 #' }
 #'
-#' @seealso \code{\link{COG_potential}}
+#' @seealso \code{\link{cog_potential}}
 #'
 #' @importFrom dplyr mutate if_else select
 #' @importFrom imager as.cimg
@@ -29,18 +29,18 @@
 
 draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
   statistics <- lst$statistics
-  potentials <- lst$potentials %>% dplyr::select(x,y,value)
+  potentials <- lst$potentials |> dplyr::select(x,y,value)
   origin <- lst$origin
 
-  cog <- c(statistics$center_x, statistics$center_y) %>% round()
+  cog <- c(statistics$center_x, statistics$center_y) |> round()
 
   out <- list(
     x = 1:statistics$width_original,
     y = 1:statistics$height_original,
     cc = 1:3
-  ) %>%
-    expand.grid() %>%
-    left_join(potentials, by = c("x","y")) %>%
+  ) |>
+    expand.grid() |>
+    left_join(potentials, by = c("x","y")) |>
     mutate(
       value = if_else(is.na(value), 1, 1 - value)
     )
@@ -50,7 +50,7 @@ draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
       cog[2] <- statistics$height_original - cog[2]
     }
 
-    out <- out %>%
+    out <- out |>
       dplyr::mutate(
         value = if_else(x == cog[1]&cc==1, 1, value),
         value = if_else(x == cog[1]&cc!=1, 0, value),
@@ -59,7 +59,7 @@ draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
       )
   }
 
-  out <- out %>%
+  out <- out |>
     imager::as.cimg(dims = c(statistics$width_original, statistics$height_original, 1, 3))
 
   if(plot_image){

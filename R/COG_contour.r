@@ -28,16 +28,15 @@
 #'
 #' @examples
 #' \dontrun{
-#'   COG_contour(img_A, origin = "bottomleft")
+#'   cog_contour(img_A, origin = "bottomleft")
 #' }
 #'
 #' @importFrom imager load.image
 #' @importFrom sp point.in.polygon
 #' @import dplyr
-#' @import tidyr
 #' @export
 
-COG_contour <- function(img, origin = c("bottomleft", "topleft")){
+cog_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
@@ -59,12 +58,12 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   # Transform to data frame format ------------------------
 
-  im.dat <- im %>% as.data.frame() %>% dplyr::filter(cc == 1)
+  im.dat <- im |> as.data.frame() |> dplyr::filter(cc == 1)
 
   # Extract the non-white region ------------------------
 
-  im.dat.stroke <- im.dat %>%
-    dplyr::filter(value != 1) %>%
+  im.dat.stroke <- im.dat |>
+    dplyr::filter(value != 1) |>
     dplyr::mutate(value = 0)
 
   # Initialization of points ------------------------
@@ -77,8 +76,8 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   # Point 0 ------------------------
 
-  point_0 <- im.dat.stroke %>%
-    dplyr::filter(y == max(y)) %>%
+  point_0 <- im.dat.stroke |>
+    dplyr::filter(y == max(y)) |>
     dplyr::filter(x == min(x))
 
   points[1,] <- c(point_0$x, point_0$y, 0)
@@ -96,20 +95,20 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
   ## Loop ------------------------
 
   while(is_end == 0){
-    check <- im.dat.stroke %>%
-      dplyr::filter(x != ref$x | y != ref$y) %>%
+    check <- im.dat.stroke |>
+      dplyr::filter(x != ref$x | y != ref$y) |>
       dplyr::mutate(
         height = ref$y - y,
         width = x - ref$x,
         slope = height/width,
         angle = atan2(height, width),
         angle = (angle + 2 * pi) %% (2 * pi)
-      ) %>%
-      dplyr::filter(angle >= theta) %>%
-      dplyr::filter(angle == min(angle)) %>%
+      ) |>
+      dplyr::filter(angle >= theta) |>
+      dplyr::filter(angle == min(angle)) |>
       dplyr::mutate(
         distance = sqrt(height^2 + width^2)
-      ) %>%
+      ) |>
       dplyr::filter(distance == max(distance))
 
     i <- i + 1
@@ -123,9 +122,9 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
       is_end <- 1
     } else{
       theta <- check$angle[1]
-      ref <- check %>% dplyr::select(x,y, angle) %>% dplyr::slice(1)
+      ref <- check |> dplyr::select(x,y, angle) |> dplyr::slice(1)
 
-      points <- points %>%
+      points <- points |>
         dplyr::bind_rows(ref)
     }
   }
@@ -134,13 +133,13 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
 
   size_original <- dim(im)[1:2]
 
-  margin <- im.dat.stroke %>%
+  margin <- im.dat.stroke |>
     dplyr::summarise(
       xmin = min(x),
       xmax = max(x),
       ymin = min(y),
       ymax = max(y)
-    ) %>%
+    ) |>
     dplyr::mutate(
       margin_left = xmin - 1,
       margin_right = size_original[1] - xmax,
@@ -154,23 +153,23 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
     x = 1:size_original[1],
     y = 1:size_original[2],
     cc = 1:3
-  ) %>%
-    expand.grid() %>%
-    dplyr::mutate(value = 1) %>%
+  ) |>
+    expand.grid() |>
+    dplyr::mutate(value = 1) |>
     dplyr::mutate(
       inc = sp::point.in.polygon(
         x, y, points$x, points$y
       ),
       value = if_else(inc >= 1, 0, 1)
-    ) %>%
+    ) |>
     dplyr::filter(value == 0)
 
-  statistics <- tmp %>%
+  statistics <- tmp |>
     dplyr::summarise(
       center_x = mean(x), # left = 0, right = 1
       center_y = mean(y), # top = 0, bottom = 1
       area = n()
-    ) %>%
+    ) |>
     dplyr::mutate(
       margin_left = margin$margin_left,
       margin_right = margin$margin_right,
@@ -178,20 +177,20 @@ COG_contour <- function(img, origin = c("bottomleft", "topleft")){
       margin_bottom = margin$margin_bottom,
       width_original = size_original[1],
       height_original = size_original[2]
-    ) %>%
+    ) |>
     dplyr::mutate(
       center_x_trim = center_x - margin_left, # left = 0, right = 1
       center_y_trim = center_y - margin_top, # top = 0, bottom = 1
       width_trim = width_original - margin_left - margin_right,
       height_trim = height_original - margin_top - margin_bottom,
-    ) %>%
+    ) |>
     dplyr::mutate(
       center_x_std = center_x_trim / width_trim, # left = 0, right = 1
       center_y_std = center_y_trim / height_trim # top = 0, bottom = 1
     )
 
   if(origin == "bottomleft"){
-    statistics <- statistics %>%
+    statistics <- statistics |>
       dplyr::mutate(
         center_y = size_original[2] - center_y, # bottom = 0, top = 1
         center_y_trim = height_trim - center_y_trim, # bottom = 0, top = 1

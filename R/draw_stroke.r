@@ -1,10 +1,10 @@
 #' Visualize Stroke Region and Center of Gravity (COG)
 #'
 #' Visualizes the stroke region of a character-like binary image using the result
-#' from \code{COG_stroke()}. Optionally overlays crosshair lines at the computed
+#' from \code{cog_stroke()}. Optionally overlays crosshair lines at the computed
 #' center of gravity (COG) position.
 #'
-#' @param lst A list returned by \code{\link{COG_stroke}}, containing
+#' @param lst A list returned by \code{\link{cog_stroke}}, containing
 #'   stroke pixel data and computed statistics.
 #' @param show_cog Logical. If \code{TRUE} (default), draws horizontal and vertical
 #'   red lines through the COG to visualize its position.
@@ -16,11 +16,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   result <- COG_stroke(img_A)
+#'   result <- cog_stroke(img_A)
 #'   draw_stroke(result, show_cog = TRUE)
 #' }
 #'
-#' @seealso \code{\link{COG_stroke}}
+#' @seealso \code{\link{cog_stroke}}
 #'
 #' @importFrom dplyr left_join mutate if_else
 #' @importFrom imager as.cimg
@@ -31,15 +31,15 @@ draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
   strokes <- lst$strokes
   origin <- lst$origin
 
-  cog <- c(statistics$center_x, statistics$center_y) %>% round()
+  cog <- c(statistics$center_x, statistics$center_y) |> round()
 
   out <- list(
     x = 1:statistics$width_original,
     y = 1:statistics$height_original,
     cc = 1:3
-  ) %>%
-    expand.grid() %>%
-    dplyr::left_join(strokes, by = c("x", "y")) %>%
+  ) |>
+    expand.grid() |>
+    dplyr::left_join(strokes, by = c("x", "y")) |>
     dplyr::mutate(value = if_else(is.na(value), 1, 0))
 
   if(show_cog){
@@ -47,7 +47,7 @@ draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
       cog[2] <- statistics$height_original - cog[2]
     }
 
-    out <- out %>%
+    out <- out |>
       dplyr::mutate(
         value = if_else(x == cog[1]&cc==1, 1, value),
         value = if_else(x == cog[1]&cc!=1, 0, value),
@@ -56,7 +56,7 @@ draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
       )
   }
 
-  out <- out %>%
+  out <- out |>
     imager::as.cimg(dims = c(statistics$width_original, statistics$height_original, 1, 3))
 
   if(plot_image){

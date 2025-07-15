@@ -7,7 +7,7 @@
 draw_stroke(lst, show_cog = TRUE, plot_image = TRUE)
 }
 \arguments{
-\item{lst}{A list returned by \code{\link{COG_stroke}}, containing
+\item{lst}{A list returned by \code{\link{cog_stroke}}, containing
 stroke pixel data and computed statistics.}
 
 \item{show_cog}{Logical. If \code{TRUE} (default), draws horizontal and vertical
@@ -22,16 +22,16 @@ COG lines), suitable for plotting or further manipulation.
 }
 \description{
 Visualizes the stroke region of a character-like binary image using the result
-from \code{COG_stroke()}. Optionally overlays crosshair lines at the computed
+from \code{cog_stroke()}. Optionally overlays crosshair lines at the computed
 center of gravity (COG) position.
 }
 \examples{
 \dontrun{
-  result <- COG_stroke(img_A)
+  result <- cog_stroke(img_A)
   draw_stroke(result, show_cog = TRUE)
 }
 
 }
 \seealso{
-\code{\link{COG_stroke}}
+\code{\link{cog_stroke}}
 }
