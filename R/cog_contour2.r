@@ -36,7 +36,7 @@
 #' @import dplyr
 #' @export
 
-cog_contour <- function(img, origin = c("bottomleft", "topleft")){
+cog_contour2 <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]

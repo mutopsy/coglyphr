@@ -37,7 +37,7 @@
 #' @import dplyr
 #' @export
 
-cog_potential <- function(img, origin = c("bottomleft", "topleft")){
+cog_potential2 <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
