@@ -41,8 +41,7 @@ library(coglyphr)
 ```
 ## Version History
 
-### v0.0.0.9000 (2025-07-13)   
-- Initial developer version
+See the [Changelog on pkgdown site](https://mutopsy.github.io/coglyphr/news/)) for the full changelog.
 
 ## References
 
