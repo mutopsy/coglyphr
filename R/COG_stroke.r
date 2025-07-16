@@ -79,8 +79,8 @@ cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   statistics <- im.dat.stroke |>
     dplyr::summarise(
-      center_x = mean(x), # left = 0, right = 1
-      center_y = mean(y), # top = 0, bottom = 1
+      center_x = mean(x), # left = 0
+      center_y = mean(y), # top = 0
       area = n()
     ) |>
     dplyr::mutate(
@@ -92,22 +92,22 @@ cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
       height_original = size_original[2]
     ) |>
     dplyr::mutate(
-      center_x_trim = center_x - margin_left, # left = 0, right = 1
-      center_y_trim = center_y - margin_top, # top = 0, bottom = 1
+      center_x_trim = center_x - margin_left, # left = 0
+      center_y_trim = center_y - margin_top, # top = 0
       width_trim = width_original - margin_left - margin_right,
       height_trim = height_original - margin_top - margin_bottom,
     ) |>
     dplyr::mutate(
-      center_x_std = center_x_trim / width_trim, # left = 0, right = 1
-      center_y_std = center_y_trim / height_trim # top = 0, bottom = 1
+      center_x_std = center_x_trim / (width_trim + 1), # left = 0
+      center_y_std = center_y_trim / (height_trim + 1) # top  = 0
     )
 
   if(origin == "bottomleft"){
     statistics <- statistics |>
       dplyr::mutate(
-        center_y = size_original[2] - center_y, # bottom = 0, top = 1
-        center_y_trim = height_trim - center_y_trim, # bottom = 0, top = 1
-        center_y_std = 1 - center_y_std # bottom = 0, top = 1
+        center_y = size_original[2] + 1 - center_y, # bottom = 0
+        center_y_trim = center_y - margin_bottom, # bottom = 0
+        center_y_std = center_y_trim / (height_trim + 1) # bottom = 0
       )
   }
 
@@ -129,4 +129,3 @@ utils::globalVariables(
     "width_original"
   )
 )
-

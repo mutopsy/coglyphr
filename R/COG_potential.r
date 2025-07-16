@@ -173,8 +173,8 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
       total = sum(p)
     ) |>
     dplyr::summarise(
-      center_x = sum(p * x) / total[1], # left = 0, right = 1
-      center_y = sum(p * y) / total[1] # top = 0, bottom = 1
+      center_x = sum(p * x) / total[1], # left = 0
+      center_y = sum(p * y) / total[1] # top = 0
     ) |>
     dplyr::mutate(
       margin_left = margin$margin_left,
@@ -185,22 +185,22 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
       height_original = size_original[2]
     ) |>
     dplyr::mutate(
-      center_x_trim = center_x - margin_left, # left = 0, right = 1
-      center_y_trim = center_y - margin_top, # top = 0, bottom = 1
+      center_x_trim = center_x - margin_left, # left = 0
+      center_y_trim = center_y - margin_top, # top = 0
       width_trim = width_original - margin_left - margin_right,
       height_trim = height_original - margin_top - margin_bottom,
     ) |>
     dplyr::mutate(
-      center_x_std = center_x_trim / width_trim, # left = 0, right = 1
-      center_y_std = 1 - center_y_trim / height_trim # top = 0, bottom = 1
+      center_x_std = center_x_trim / width_trim, # left = 0
+      center_y_std = 1 - center_y_trim / height_trim # top = 0
     )
 
   if(origin == "bottomleft"){
-    statistics_p <- statistics_p |>
+    statistics <- statistics |>
       dplyr::mutate(
-        center_y = size_original[2] - center_y, # bottom = 0, top = 1
-        center_y_trim = height_trim - center_y_trim, # bottom = 0, top = 1
-        center_y_std = 1 - center_y_std # bottom = 0, top = 1
+        center_y = size_original[2] + 1 - center_y, # bottom = 0
+        center_y_trim = center_y - margin_bottom, # bottom = 0
+        center_y_std = center_y_trim / (height_trim + 1) # bottom = 0
       )
   }
 

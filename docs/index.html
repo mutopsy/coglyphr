@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Compute Glyph Centroids from Image Data • coglyphr</title>
+<title>Compute Glyph Centers of Gravity from Image Data • coglyphr</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Compute Glyph Centroids from Image Data">
-<meta name="description" content="Computes the center of gravity (COG) of character-like binary images using various methods. This package provides functions for estimating stroke-based COG, contour-based COG, and potential energy-based COG. It is useful for analyzing glyph structure in image-based research on cognition and perception.">
-<meta property="og:description" content="Computes the center of gravity (COG) of character-like binary images using various methods. This package provides functions for estimating stroke-based COG, contour-based COG, and potential energy-based COG. It is useful for analyzing glyph structure in image-based research on cognition and perception.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Compute Glyph Centers of Gravity from Image Data">
+<meta name="description" content="Computes the center of gravity (COG) of character-like binary images using various methods. This package provides functions for estimating stroke-based COG, contour-based COG, and potential energy-based COG. It is useful for analyzing glyph structures in fields such as image-based research on cognition and perception.">
+<meta property="og:description" content="Computes the center of gravity (COG) of character-like binary images using various methods. This package provides functions for estimating stroke-based COG, contour-based COG, and potential energy-based COG. It is useful for analyzing glyph structures in fields such as image-based research on cognition and perception.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,19 +46,19 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="coglyphr-compute-glyph-centroids-from-image-data">coglyphr: Compute Glyph Centroids from Image Data<a class="anchor" aria-label="anchor" href="#coglyphr-compute-glyph-centroids-from-image-data"></a>
+<div class="page-header"><h1 id="coglyphr-compute-glyph-centers-of-gravity-from-image-data">coglyphr: Compute Glyph Centers of Gravity from Image Data<a class="anchor" aria-label="anchor" href="#coglyphr-compute-glyph-centers-of-gravity-from-image-data"></a>
 </h1></div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><code>coglyphr</code> is an R package for computing the center of gravity (COG) of character-like binary images using various methods. It is particularly useful for analyzing glyph structures in image-based research on cognition and perception.</p>
+<p><code>coglyphr</code> is an R package for computing the center of gravity (COG) of character-like binary images using various methods. It is useful for analyzing glyph structures in fields such as image-based research on cognition and perception.</p>
 <p>The current version supports the following COG computation methods:</p>
 <ul>
-<li>Stroke-based COG (<code>COG_stroke</code>)<br>
+<li>Stroke-based COG (<code>cog_stroke</code>)<br>
 </li>
-<li>Contour-based COG (<code>COG_contour</code>), based on the method proposed by Kotani and colleagues (2004, 2011)<br>
+<li>Contour-based COG (<code>cog_contour</code>), based on the method proposed by Kotani and colleagues (2004, 2011)<br>
 </li>
-<li>Potential energy-based COG (<code>COG_potential</code>), based on the method proposed by Kotani and colleagues (2006)</li>
+<li>Potential energy-based COG (<code>cog_potential</code>), based on the method proposed by Kotani and colleagues (2006)</li>
 </ul>
 <p>For details on each function, refer to <a href="https://mutopsy.github.io/coglyphr/reference/" class="external-link">the function references</a>.</p>
 </div>
@@ -79,7 +79,6 @@
 <p>This package requires:<br>
 * R (&gt;= 4.4.0)<br>
 * <code>dplyr</code><br>
-* <code>tidyr</code><br>
 * <code>imager</code><br>
 * <code>sp</code></p>
 </div>
