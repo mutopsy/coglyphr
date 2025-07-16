@@ -41,7 +41,7 @@ library(coglyphr)
 ```
 ## Version History
 
-See the [Changelog on pkgdown site](https://mutopsy.github.io/coglyphr/news/)) for the full changelog.
+See the [Changelog on pkgdown site](https://mutopsy.github.io/coglyphr/news/) for the full changelog.
 
 ## References
 
