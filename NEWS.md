@@ -1,3 +1,3 @@
-# coglyphr (development version)
+# coglyphr 0.0.0
 
-* Initial CRAN submission.
+* Initial developer version
