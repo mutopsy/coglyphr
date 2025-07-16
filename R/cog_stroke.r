@@ -27,7 +27,7 @@
 #' @export
 
 
-cog_stroke2 <- function(img, origin = c("bottomleft", "topleft")){
+cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
   # Initialization ------------------------
   origin <- origin[1]
