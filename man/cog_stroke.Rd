@@ -25,7 +25,28 @@ margins around the glyph, and original image dimensions. The center is calculate
 }
 \description{
 Computes the center of gravity (COG) of a character-like binary image using its stroke region.
-The COG is defined as the mean of the (x, y) coordinates of all non-white pixels.
+}
+\details{
+In the stroke-based method, the COG is defined as the arithmetic mean of the (x, y) coordinates
+of all pixels that belong to the stroke region, i.e., the foreground pixels whose intensity values
+are not equal to 1 (pure white). This approach assumes that each stroke pixel has unit mass and
+contributes equally to the center calculation. The image is assumed to be binary, where the background
+pixels have a value of 1, and all other pixels are treated as part of the glyph.
+
+Mathematically, the stroke-based center of gravity \eqn{(G_x, G_y)} is defined as the weighted mean of pixel coordinates
+within the stroke region, where each pixel contributes a value of 1 (unit mass) and background pixels are excluded.
+Specifically, let \eqn{p(x, y)} be an indicator function such that \eqn{p(x, y) = 1} if the pixel \eqn{(x, y)}
+belongs to the stroke region, and \eqn{p(x, y) = 0} otherwise. Then the horizontal and vertical components
+of the COG are computed as:
+
+\deqn{
+G_x = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot x) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+}
+\deqn{
+G_y = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot y) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+}
+
+where \eqn{w} and \eqn{h} denote the width and height of the image, respectively.
 }
 \examples{
 \dontrun{

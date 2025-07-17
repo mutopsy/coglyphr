@@ -27,6 +27,11 @@
 #' @export
 
 draw_contour <- function(lst, show_cog = TRUE, plot_image = TRUE){
+
+  if (!identical(attr(lst, "coglyphr_type"), "contour")) {
+    stop("Input must be a result from cog_contour().")
+  }
+
   statistics <- lst$statistics
   points <- lst$points |> dplyr::select(x,y)
   origin <- lst$origin
@@ -71,3 +76,5 @@ draw_contour <- function(lst, show_cog = TRUE, plot_image = TRUE){
 
   return(out)
 }
+
+utils::globalVariables("cc")

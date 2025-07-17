@@ -7,6 +7,46 @@
 #' The potential at each pixel is computed as the sum of the inverses of the distances between that pixel
 #' and all pixels in the stroke region.
 #'
+#' @details
+#' In the potential energy-based method, the center of gravity (COG) is defined as the weighted mean of the coordinates
+#' of all pixels within the convex hull of the stroke region, where the weight at each pixel is determined by the potential
+#' induced by all other stroke pixels.
+#' The method assumes that each stroke pixel contributes a unit mass and exerts an attractive force
+#' on all other pixels within the convex polygon, inversely proportional to their distance,
+#' modeling a simplified gravitational interaction.
+#' To avoid excessive computation, unintended influence from remote regions, and to restrict
+#' the analysis to a perceptually relevant area, the potential is computed only within
+#' the convex polygon (i.e., the same region used in the contour-based COG calculation),
+#' rather than across the entire image.
+#'
+#' Let \eqn{S} be the set of all stroke pixels, and let \eqn{R} be the set of all pixels within the convex polygon region.
+#' The potential at each pixel \eqn{(x, y) \in R} is defined as:
+#'
+#' \deqn{
+#' p(x, y) = \sum_{\substack{(x', y') \in S \\ (x', y') \ne (x, y)}} \frac{1}{\sqrt{(x - x')^2 + (y - y')^2}}
+#' }
+#'
+#' That is, the potential at each point in \eqn{R} is the sum of the inverse distances to all stroke pixels in \eqn{S}, excluding the case where \eqn{(x', y') = (x, y)}.
+#' Pixels outside the convex polygon are assigned a potential value of zero and do not contribute to the COG calculation.
+#'
+#' Then, the center of gravity is computed as:
+#'
+#' \deqn{
+#' G_x = \left( \sum_{(x, y) \in R} p(x, y) \cdot x \right) / \left( \sum_{(x, y) \in R} p(x, y) \right)
+#' }
+#' \deqn{
+#' G_y = \left( \sum_{(x, y) \in R} p(x, y) \cdot y \right) / \left( \sum_{(x, y) \in R} p(x, y) \right)
+#' }
+#'
+#' In other words, the COG corresponds to the weighted mean of pixel coordinates in the convex region,
+#' where weights are given by their potential values induced by the distribution of stroke pixels.
+#'
+#' This method was originally proposed by Kotani et al. (2006) and has been used
+#' in character analysis and font design to reflect the perceived shape of glyphs more robustly
+#' than simple stroke averaging, and to further improve upon the contour-based COG
+#' by incorporating the spatial distribution of strokes within the convex polygon,
+#' thereby aligning more closely with the subjective impression of a character's center.
+#'
 #' @param img An image input, either a file path to an image file (e.g., PNG, JPEG),
 #'   or a \code{cimg} object from the \pkg{imager} package. The image should be in binary form,
 #'   with foreground (glyph) values not equal to 1 and background values equal to 1.
@@ -17,8 +57,7 @@
 #' @return A list containing:
 #' \describe{
 #'   \item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-#'     margins around the glyph, and original image dimensions. The center is calculated as the centroid of the
-#'     smallest convex polygon enclosing the glyph region.}
+#'     margins around the glyph, and original image dimensions. The center is defined as the weighted average (by potential energy) of point coordinates within the convex hull of the glyph.}
 #'   \item{\code{potentials}}{A data frame containing the (x, y) coordinates and the normalized potential value
 #'     for each pixel within the convex hull. The potentials are normalized so that their sum equals 1.}
 
@@ -57,9 +96,31 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
     stop("`img` must be either a file path or a valid image object.")
   }
 
+  # Binarize image  ------------------------
+
+  n_ch <- imager::spectrum(im)
+
+  if (n_ch == 3 || n_ch == 4) {
+    r <- imager::R(im)
+    g <- imager::G(im)
+    b <- imager::B(im)
+
+    white_mask <- (r == 1) & (g == 1) & (b == 1)
+    im <- imager::as.cimg(white_mask * 1)
+
+  } else if (n_ch == 1) {
+    im <- im |>
+      as.data.frame() |>
+      mutate(value = if_else(value == 1, 1, 0)) |>
+      as.cimg(dim = c(dim(im)))
+
+  } else {
+    stop("Cannot convert image: unsupported number of channels (must be 1, 3, or 4).")
+  }
+
   # Transform to data frame format ------------------------
 
-  im.dat <- im |> as.data.frame() |> dplyr::filter(cc == 1)
+  im.dat <- im |> as.data.frame()
 
   # Extract the non-white region ------------------------
 
@@ -168,7 +229,6 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
   # Calculate Potential Energy-based Center ----------------------------------
 
   statistics_p <- im.dat.region |>
-    dplyr::filter(cc == 1) |>
     dplyr::mutate(
       total = sum(p)
     ) |>
@@ -191,12 +251,12 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
       height_trim = height_original - margin_top - margin_bottom,
     ) |>
     dplyr::mutate(
-      center_x_std = center_x_trim / width_trim, # left = 0
-      center_y_std = 1 - center_y_trim / height_trim # top = 0
+      center_x_std = center_x_trim / (width_trim + 1), # left = 0
+      center_y_std = center_y_trim / (height_trim + 1) # top  = 0
     )
 
   if(origin == "bottomleft"){
-    statistics <- statistics |>
+    statistics_p <- statistics_p |>
       dplyr::mutate(
         center_y = size_original[2] + 1 - center_y, # bottom = 0
         center_y_trim = center_y - margin_bottom, # bottom = 0
@@ -207,17 +267,18 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
   out <- list(
     statistics = statistics_p,
     potentials = im.dat.region |>
-      dplyr::select(x,y,cc,value = p) |>
+      dplyr::select(x,y,value = p) |>
       dplyr::mutate(value = value / max(value)),
     origin = origin
   )
 
+  attr(out, "coglyphr_type") <- "potential"
   return(out)
 }
 
 
 utils::globalVariables(
-  c("cc", "value", "y", "x", "height", "width", "angle", "distance",
+  c("value", "y", "x", "height", "width", "angle", "distance",
     "xmin", "xmax", "ymin", "ymax", "inc", "center_x", "margin_left",
     "center_y", "margin_top", "margin_right", "height_original", "margin_bottom",
     "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_y_std",

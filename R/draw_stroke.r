@@ -27,6 +27,11 @@
 #' @export
 
 draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
+
+  if (!identical(attr(lst, "coglyphr_type"), "stroke")) {
+    stop("Input must be a result from cog_stroke().")
+  }
+
   statistics <- lst$statistics
   strokes <- lst$strokes
   origin <- lst$origin
@@ -65,3 +70,5 @@ draw_stroke <- function(lst, show_cog = TRUE, plot_image = TRUE){
 
   return(out)
 }
+
+utils::globalVariables("cc")

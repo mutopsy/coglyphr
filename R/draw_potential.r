@@ -28,6 +28,11 @@
 #' @export
 
 draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
+
+  if (!identical(attr(lst, "coglyphr_type"), "potential")) {
+    stop("Input must be a result from cog_potential().")
+  }
+
   statistics <- lst$statistics
   potentials <- lst$potentials |> dplyr::select(x,y,value)
   origin <- lst$origin
@@ -68,3 +73,5 @@ draw_potential <- function(lst, show_cog = TRUE, plot_image = TRUE){
 
   return(out)
 }
+
+utils::globalVariables("cc")

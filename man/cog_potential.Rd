@@ -19,8 +19,7 @@ or \code{"topleft"} if the y-axis increases downward (as in image arrays).}
 A list containing:
 \describe{
 \item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-margins around the glyph, and original image dimensions. The center is calculated as the centroid of the
-smallest convex polygon enclosing the glyph region.}
+margins around the glyph, and original image dimensions. The center is defined as the weighted average (by potential energy) of point coordinates within the convex hull of the glyph.}
 \item{\code{potentials}}{A data frame containing the (x, y) coordinates and the normalized potential value
 for each pixel within the convex hull. The potentials are normalized so that their sum equals 1.}
 }
@@ -32,6 +31,46 @@ as the potential energy-weighted mean within the smallest convex polygon (i.e., 
 that encloses the character region. Each pixel in the stroke region is treated as a point mass of unit mass.
 The potential at each pixel is computed as the sum of the inverses of the distances between that pixel
 and all pixels in the stroke region.
+}
+\details{
+In the potential energy-based method, the center of gravity (COG) is defined as the weighted mean of the coordinates
+of all pixels within the convex hull of the stroke region, where the weight at each pixel is determined by the potential
+induced by all other stroke pixels.
+The method assumes that each stroke pixel contributes a unit mass and exerts an attractive force
+on all other pixels within the convex polygon, inversely proportional to their distance,
+modeling a simplified gravitational interaction.
+To avoid excessive computation, unintended influence from remote regions, and to restrict
+the analysis to a perceptually relevant area, the potential is computed only within
+the convex polygon (i.e., the same region used in the contour-based COG calculation),
+rather than across the entire image.
+
+Let \eqn{S} be the set of all stroke pixels, and let \eqn{R} be the set of all pixels within the convex polygon region.
+The potential at each pixel \eqn{(x, y) \in R} is defined as:
+
+\deqn{
+p(x, y) = \sum_{\substack{(x', y') \in S \\ (x', y') \ne (x, y)}} \frac{1}{\sqrt{(x - x')^2 + (y - y')^2}}
+}
+
+That is, the potential at each point in \eqn{R} is the sum of the inverse distances to all stroke pixels in \eqn{S}, excluding the case where \eqn{(x', y') = (x, y)}.
+Pixels outside the convex polygon are assigned a potential value of zero and do not contribute to the COG calculation.
+
+Then, the center of gravity is computed as:
+
+\deqn{
+G_x = \left( \sum_{(x, y) \in R} p(x, y) \cdot x \right) / \left( \sum_{(x, y) \in R} p(x, y) \right)
+}
+\deqn{
+G_y = \left( \sum_{(x, y) \in R} p(x, y) \cdot y \right) / \left( \sum_{(x, y) \in R} p(x, y) \right)
+}
+
+In other words, the COG corresponds to the weighted mean of pixel coordinates in the convex region,
+where weights are given by their potential values induced by the distribution of stroke pixels.
+
+This method was originally proposed by Kotani et al. (2006) and has been used
+in character analysis and font design to reflect the perceived shape of glyphs more robustly
+than simple stroke averaging, and to further improve upon the contour-based COG
+by incorporating the spatial distribution of strokes within the convex polygon,
+thereby aligning more closely with the subjective impression of a character's center.
 }
 \examples{
 \dontrun{

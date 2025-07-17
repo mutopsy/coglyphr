@@ -2,7 +2,7 @@
 % Please edit documentation in R/cog_contour.r
 \name{cog_contour}
 \alias{cog_contour}
-\title{Compute Contour-Based Center of Gravity (COG) from Convex Polygon}
+\title{Compute Contour-Based Center of Gravity (COG)}
 \usage{
 cog_contour(img, origin = c("bottomleft", "topleft"))
 }
@@ -25,11 +25,34 @@ smallest convex polygon enclosing the glyph region.}
 }
 }
 \description{
-Calculates the center of gravity (COG) of a character-like binary image based on its outer contour.
-This function implements the method proposed by Kotani and colleagues (2004, 2011), in which the COG
-is computed as the geometric center of the smallest convex polygon (convex hull) that encloses the
-character region. The outer contour is traced counterclockwise starting from the bottommost-leftmost pixel,
-and the resulting closed shape is filled to compute its centroid.
+Computes the center of gravity (COG) of a character-like binary image using its outer contour.
+}
+\details{
+In the contour-based method, the center of gravity (COG) is defined as the geometrical centroid
+of the convex hull (the smallest convex polygon) that encloses the stroke region of the character.
+The convex hull is estimated by tracing the outer contour of the glyph and computing the minimal convex polygon
+that wraps all stroke pixels, i.e., the foreground pixels whose intensity values are not equal to 1 (pure white).
+The centroid is then calculated as the arithmetic mean of the (x, y) coordinates
+of all pixels located within the interior of the convex polygon.
+
+Mathematically, the contour-based center of gravity \eqn{(G_x, G_y)} is defined as the weighted mean of pixel coordinates
+within the polygon region, where each pixel contributes a value of 1 (unit mass) and background pixels are excluded.
+Specifically, let \eqn{p(x, y)} be an indicator function such that \eqn{p(x, y) = 1} if the pixel \eqn{(x, y)} lies
+inside the convex polygon and \eqn{p(x, y) = 0} otherwise. Then the horizontal and vertical components
+of the COG are computed as:
+
+\deqn{
+G_x = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot x) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+}
+\deqn{
+G_y = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot y) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+}
+
+where \eqn{w} and \eqn{h} denote the width and height of the image, respectively.
+
+This method was originally proposed by Kotani and colleagues (2004, 2011) and has been used
+in character analysis and font design to reflect the perceived shape of glyphs more robustly
+than simple stroke averaging.
 }
 \examples{
 \dontrun{

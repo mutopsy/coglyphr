@@ -1,19 +1,19 @@
-test_that("cog_stroke given a four-channel image file returns correct structure", {
+test_that("cog_contour given a four-channel image file returns correct structure", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
   for(i in 1:length(inputs_files)){
     img <- imager::load.image(inputs_files[i])
 
-    result <- cog_stroke(img)
+    result <- cog_contour(img)
 
     expect_type(result, "list")
     expect_true("statistics" %in% names(result))
-    expect_true("strokes" %in% names(result))
+    expect_true("points" %in% names(result))
   }
 })
 
-test_that("cog_stroke given a one-channel image file returns correct structure", {
+test_that("cog_contour given a one-channel image file returns correct structure", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
@@ -31,36 +31,36 @@ test_that("cog_stroke given a one-channel image file returns correct structure",
       img <- imager::as.cimg(gray_vals)
 
     } else if (n_ch == 1) {
-      # img <- img
+      img <- img
 
     } else {
       stop("Cannot convert image: unsupported number of channels (must be 1, 3, or 4).")
     }
 
-    result <- cog_stroke(img)
+    result <- cog_contour(img)
 
     expect_type(result, "list")
     expect_true("statistics" %in% names(result))
-    expect_true("strokes" %in% names(result))
+    expect_true("points" %in% names(result))
   }
 })
 
-test_that("cog_stroke given a path to an image file returns correct structure", {
+test_that("cog_contour given a path to an image file returns correct structure", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
   for(i in 1:length(inputs_files)){
     img <- inputs_files[i]
 
-    result <- cog_stroke(img)
+    result <- cog_contour(img)
 
     expect_type(result, "list")
     expect_true("statistics" %in% names(result))
-    expect_true("strokes" %in% names(result))
+    expect_true("points" %in% names(result))
   }
 })
 
-test_that("cog_stroke with origin specified returns correctlly adjusted values", {
+test_that("cog_contour with origin specified returns correctlly adjusted values", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
@@ -69,9 +69,9 @@ test_that("cog_stroke with origin specified returns correctlly adjusted values",
 
     size <- dim(img)[1:2]
 
-    stats_none <- cog_stroke(img)$statistics
-    stats_bottomleft <- cog_stroke(img, origin = "bottomleft")$statistics
-    stats_topleft <- cog_stroke(img, origin = "topleft")$statistics
+    stats_none <- cog_contour(img)$statistics
+    stats_bottomleft <- cog_contour(img, origin = "bottomleft")$statistics
+    stats_topleft <- cog_contour(img, origin = "topleft")$statistics
 
     expect_equal(stats_none, stats_bottomleft, tolerance = 1e-6)
 
@@ -85,12 +85,12 @@ test_that("cog_stroke with origin specified returns correctlly adjusted values",
     }
   })
 
-test_that("cog_stroke matches expected statistics", {
-  expected <- testthat::test_path("expected", "cog_stroke.csv") %>%
+test_that("cog_contour matches expected statistics", {
+  expected <- testthat::test_path("expected", "cog_contour.csv") %>%
     read.csv()
 
   stats <- testthat::test_path("images", expected$filename) %>%
-    lapply(function(x){cog_stroke(x)$statistics}) %>%
+    lapply(function(x){cog_contour(x)$statistics}) %>%
     bind_rows()
 
   expect_equal(unlist(stats), unlist(expected[,-1]), tolerance = 1e-6)
