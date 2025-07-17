@@ -2,7 +2,7 @@
 
 ## Overview
 
-`coglyphr` is an R package for computing the center of gravity (COG) of character-like binary images using various methods. It is useful for analyzing glyph structures in fields such as image-based research on cognition and perception.
+`coglyphr` is an R package for computing the center of gravity (COG) of character-like binary images using three different methods. This package provides functions for estimating stroke-based, contour-based, and potential energy-based COG. It is useful for analyzing glyph structure in areas such as visual cognition research and font development.
 
 The current version supports the following COG computation methods:
 
