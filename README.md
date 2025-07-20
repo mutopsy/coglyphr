@@ -45,6 +45,6 @@ See the [Changelog on pkgdown site](https://mutopsy.github.io/coglyphr/news/) fo
 
 ## References
 
-* Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. Memoirs of Shonan Institute of Technology, 45(1), 23–33. https://shonan-it.repo.nii.ac.jp/?action=repository_view_main_item_detail&item_id=368
+* Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. Memoirs of Shonan Institute of Technology, 45(1), 23–33. https://shonan-it.repo.nii.ac.jp/records/2000243
 * Kotani, A., Asai, Y., Nakamura, Y., Otuka, M., Mituyama, Y., & Onoye, T. (2004). Contour-based evaluation method of center of gravity on “LCFONT.” IPSJ SIG Technical Report, 115, 63–70. https://ipsj.ixsq.nii.ac.jp/records/36793
 * Kotani, A., Tanemura, Y., Mitsuyama, Y., Asai, Y., Nakamura, Y., & Onoye, T. (2006). Potential energy-based center of gravity evaluation of characters. The Journal of the Institute of Image Electronics Engineers of Japan, 35(4), 296–305. https://doi.org/10.11371/iieej.35.296
