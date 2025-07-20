@@ -1,11 +1,6 @@
 #' Compute Potential Energy-Based Center of Gravity (COG)
 #'
 #' Calculates the center of gravity (COG) of a character-like binary image based on potential energy.
-#' This function implements the method proposed by Kotani et al. (2006), in which the COG is defined
-#' as the potential energy-weighted mean within the smallest convex polygon (i.e., convex hull)
-#' that encloses the character region. Each pixel in the stroke region is treated as a point mass of unit mass.
-#' The potential at each pixel is computed as the sum of the inverses of the distances between that pixel
-#' and all pixels in the stroke region.
 #'
 #' @details
 #' In the potential energy-based method, the center of gravity (COG) is defined as the weighted mean of the coordinates
@@ -56,8 +51,16 @@
 #'
 #' @return A list containing:
 #' \describe{
-#'   \item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-#'     margins around the glyph, and original image dimensions. The center is defined as the weighted average (by potential energy) of point coordinates within the convex hull of the glyph.}
+#'   \item{\code{statistics}}{A data frame with the following components:
+#'     \itemize{
+#'       \item \code{center_x}, \code{center_y}: The (x, y) coordinates of the COG in pixel coordinates of the input image.
+#'       \item \code{center_x_trim}, \code{center_y_trim}: The COG coordinates relative to the trimmed glyph region, excluding image margins.
+#'       \item \code{center_x_std}, \code{center_y_std}: The standardized COG coordinates ranging from 0 to 1, based on the trimmed region's width and height.
+#'       \item \code{margin_left}, \code{margin_right}, \code{margin_top}, \code{margin_bottom}: Margins between the glyph and the image boundary.
+#'       \item \code{width_original}, \code{height_original}: Dimensions of the original image.
+#'       \item \code{width_trim}, \code{height_trim}: Width and height of the trimmed glyph region, excluding margins.
+#'     }
+#'   }
 #'   \item{\code{potentials}}{A data frame containing the (x, y) coordinates and the normalized potential value
 #'     for each pixel within the convex hull. The potentials are normalized so that their sum equals 1.}
 
@@ -253,6 +256,11 @@ cog_potential <- function(img, origin = c("bottomleft", "topleft")){
     dplyr::mutate(
       center_x_std = center_x_trim / (width_trim + 1), # left = 0
       center_y_std = center_y_trim / (height_trim + 1) # top  = 0
+    ) |>
+    dplyr::select(
+      center_x, center_y, center_x_trim, center_y_trim, center_x_std, center_y_std,
+      margin_left, margin_right, margin_top, margin_bottom,
+      width_original, height_original, width_trim, height_trim
     )
 
   if(origin == "bottomleft"){
@@ -281,7 +289,7 @@ utils::globalVariables(
   c("value", "y", "x", "height", "width", "angle", "distance",
     "xmin", "xmax", "ymin", "ymax", "inc", "center_x", "margin_left",
     "center_y", "margin_top", "margin_right", "height_original", "margin_bottom",
-    "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_y_std",
+    "center_x_trim", "width_trim", "center_y_trim", "height_trim",  "center_x_std"," center_y_std",
     "width_original", "p", "total"
   )
 )

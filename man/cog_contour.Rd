@@ -18,9 +18,17 @@ or \code{"topleft"} if the y-axis increases downward (as in image arrays).}
 \value{
 A list containing:
 \describe{
-\item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-margins around the glyph, and original image dimensions. The center is calculated as the centroid of the
-smallest convex polygon enclosing the glyph region.}
+\item{\code{statistics}}{A data frame with the following components:
+\itemize{
+\item \code{center_x}, \code{center_y}: The (x, y) coordinates of the COG in pixel coordinates of the input image.
+\item \code{center_x_trim}, \code{center_y_trim}: The COG coordinates relative to the trimmed glyph region, excluding image margins.
+\item \code{center_x_std}, \code{center_y_std}: The standardized COG coordinates ranging from 0 to 1, based on the trimmed region's width and height.
+\item \code{margin_left}, \code{margin_right}, \code{margin_top}, \code{margin_bottom}: Margins between the glyph and the image boundary.
+\item \code{width_original}, \code{height_original}: Dimensions of the original image.
+\item \code{width_trim}, \code{height_trim}: Width and height of the trimmed glyph region, excluding margins.
+\item \code{area}: The number of pixels inside the convex hull (i.e., the total mass used to compute the COG).
+}
+}
 \item{\code{points}}{A data frame of (x, y) coordinates representing the contour points of the convex polygon.}
 }
 }

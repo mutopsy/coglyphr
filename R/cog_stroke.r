@@ -33,9 +33,18 @@
 #'
 #' @return A list containing:
 #' \describe{
-#'   \item{\code{statistics}}{A data frame with computed center coordinates (original, trimmed, and standardized),
-#'     margins around the glyph, and original image dimensions. The center is calculated based on the stroke region}
-#'   \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke (non-white) region.}
+#'   \item{\code{statistics}}{A data frame with the following components:
+#'     \itemize{
+#'       \item \code{center_x}, \code{center_y}: The (x, y) coordinates of the COG in pixel coordinates of the input image.
+#'       \item \code{center_x_trim}, \code{center_y_trim}: The COG coordinates relative to the trimmed glyph region, excluding image margins.
+#'       \item \code{center_x_std}, \code{center_y_std}: The standardized COG coordinates ranging from 0 to 1, based on the trimmed region's width and height.
+#'       \item \code{margin_left}, \code{margin_right}, \code{margin_top}, \code{margin_bottom}: Margins between the glyph and the image boundary.
+#'       \item \code{width_original}, \code{height_original}: Dimensions of the original image.
+#'       \item \code{width_trim}, \code{height_trim}: Width and height of the trimmed glyph region, excluding margins.
+#'       \item \code{area}: The number of pixels in the stroke region (i.e., the total mass used to compute the COG).
+#'     }
+#'   }
+#'   \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke region (i.e., non-white pixels).}
 #' }
 #'
 #' @examples
@@ -143,6 +152,12 @@ cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
     dplyr::mutate(
       center_x_std = center_x_trim / (width_trim + 1), # left = 0
       center_y_std = center_y_trim / (height_trim + 1) # top  = 0
+    ) |>
+    dplyr::select(
+      center_x, center_y, center_x_trim, center_y_trim, center_x_std, center_y_std,
+      margin_left, margin_right, margin_top, margin_bottom,
+      width_original, height_original, width_trim, height_trim,
+      area
     )
 
   if(origin == "bottomleft"){
@@ -166,10 +181,10 @@ cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
 
 
 utils::globalVariables(
-  c("value", "y", "x", "height", "width", "angle", "distance",
+  c("value", "y", "x", "height", "width", "angle", "distance", "area",
     "xmin", "xmax", "ymin", "ymax", "inc", "center_x", "margin_left",
     "center_y", "margin_top", "margin_right", "height_original", "margin_bottom",
-    "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_y_std",
+    "center_x_trim", "width_trim", "center_y_trim", "height_trim", "center_x_std", "center_y_std",
     "width_original"
   )
 )

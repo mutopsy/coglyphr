@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,11 +61,17 @@ or <code>"topleft"</code> if the y-axis increases downward (as in image arrays).
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list containing:</p><dl><dt><code>statistics</code></dt>
-<dd><p>A data frame with computed center coordinates (original, trimmed, and standardized),
-margins around the glyph, and original image dimensions. The center is calculated based on the stroke region</p></dd>
+<dd><p>A data frame with the following components:</p><ul><li><p><code>center_x</code>, <code>center_y</code>: The (x, y) coordinates of the COG in pixel coordinates of the input image.</p></li>
+<li><p><code>center_x_trim</code>, <code>center_y_trim</code>: The COG coordinates relative to the trimmed glyph region, excluding image margins.</p></li>
+<li><p><code>center_x_std</code>, <code>center_y_std</code>: The standardized COG coordinates ranging from 0 to 1, based on the trimmed region's width and height.</p></li>
+<li><p><code>margin_left</code>, <code>margin_right</code>, <code>margin_top</code>, <code>margin_bottom</code>: Margins between the glyph and the image boundary.</p></li>
+<li><p><code>width_original</code>, <code>height_original</code>: Dimensions of the original image.</p></li>
+<li><p><code>width_trim</code>, <code>height_trim</code>: Width and height of the trimmed glyph region, excluding margins.</p></li>
+<li><p><code>area</code>: The number of pixels in the stroke region (i.e., the total mass used to compute the COG).</p></li>
+</ul></dd>
 
 <dt><code>strokes</code></dt>
-<dd><p>A data frame of (x, y) coordinates representing the stroke (non-white) region.</p></dd>
+<dd><p>A data frame of (x, y) coordinates representing the stroke region (i.e., non-white pixels).</p></dd>
 
 
 </dl></div>
