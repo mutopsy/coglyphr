@@ -51,4 +51,7 @@ rsconnect/
 ^\.Rproj\.user$
 develop/
 *.Rproj
+paper.html
+paper_files/
+
 

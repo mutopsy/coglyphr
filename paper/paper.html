@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-07-18">
+<meta name="dcterms.date" content="2025-07-20">
 
 <title>coglyphr: An R package to compute glyph centers of gravity from image data</title>
 <style>
@@ -91,7 +91,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 18, 2025</p>
+      <p class="date">July 20, 2025</p>
     </div>
   </div>
   
@@ -109,7 +109,7 @@ div.csl-indent {
 </section>
 <section id="statement-of-need" class="level2">
 <h2 class="anchored" data-anchor-id="statement-of-need">Statement of Need</h2>
-<p>Quantifying the center of gravity (COG) of character glyphs is important for research in visual cognition, typographic design, and perception-based font analysis. For example, the visual balance of glyphs has been identified as a factor influencing the perceived beauty of handwriting <span class="citation" data-cites="iseki2023">(<a href="#ref-iseki2023" role="doc-biblioref">Iseki 2023</a>)</span>. The simplest approach, stroke-based COG, computes the centroid of the stroke (non-background) region (Figure 1A), but prior work has shown that it can diverge from the subjectively perceived center. To address this, Kotani et al. <span class="citation" data-cites="kotani2004 kotani2011">(<a href="#ref-kotani2004" role="doc-biblioref">2004</a>; <a href="#ref-kotani2011" role="doc-biblioref">2011</a>)</span> proposed the contour-based COG, which defines the center as the geometrical centroid of the convex hull enclosing the glyph (Figure 1B). However, because this method does not account for the internal distribution of strokes within the convex hull, Kotani et al. <span class="citation" data-cites="kotani2006">(<a href="#ref-kotani2006" role="doc-biblioref">Kotani et al. 2006</a>)</span> further introduced the potential energy-based COG, which computes a weighted mean of pixel coordinates based on gravitational potentials induced by stroke pixels (Figure 1C). Comparative analysis of these methods can provide insights into how visual balance and spatial structure contribute to the perception of written characters.</p>
+<p>Quantifying the center of gravity (COG) of character glyphs is important for research in visual cognition, typographic design, and perception-based font analysis. For example, the visual balance of glyphs has been shown to influence both font readability <span class="citation" data-cites="kotani2011">(<a href="#ref-kotani2011" role="doc-biblioref">Kotani 2011</a>)</span> and the perceived beauty of handwriting <span class="citation" data-cites="iseki2023">(<a href="#ref-iseki2023" role="doc-biblioref">Iseki 2023</a>)</span>. The simplest approach, stroke-based COG, computes the centroid of the stroke (non-background) region (Figure 1A), but prior work has shown that it can diverge from the subjectively perceived center. To address this, Kotani et al. <span class="citation" data-cites="kotani2004 kotani2011">(<a href="#ref-kotani2004" role="doc-biblioref">2004</a>; <a href="#ref-kotani2011" role="doc-biblioref">2011</a>)</span> proposed the contour-based COG, which defines the center as the geometrical centroid of the convex hull enclosing the glyph (Figure 1B). However, because this method does not account for the internal distribution of strokes within the convex hull, Kotani et al. <span class="citation" data-cites="kotani2006">(<a href="#ref-kotani2006" role="doc-biblioref">Kotani et al. 2006</a>)</span> further introduced the potential energy-based COG, which computes a weighted mean of pixel coordinates, where each weight is proportional to the sum of the inverse distances from that pixel to all stroke pixels (Figure 1C).Comparative analysis of these methods can provide insights into how visual balance and spatial structure contribute to the perception of written characters.</p>
 <p>Despite its importance, previous research on glyph COG has been largely limited to Japanese-language publications, and no widely available software tools currently support these specialized calculations. Researchers interested in glyph perception or font evaluation have lacked a standardized, open-source solution for estimating different forms of COG from image data. The <code>coglyphr</code> package was developed to address this gap by providing a reproducible and user-friendly R-based toolkit for calculating stroke-based, contour-based, and potential energy-based COGs from binary character images.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

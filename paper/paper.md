@@ -7,7 +7,7 @@ authors:
 affiliations:
   - name: Osaka Metropolitan University
     index: 1
-date: 2025-07-18
+date: 2025-07-20
 bibliography: paper.bib
 ---
 
