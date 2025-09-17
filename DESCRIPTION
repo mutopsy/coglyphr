@@ -2,14 +2,18 @@ Package: coglyphr
 Title: Compute Glyph Centers of Gravity from Image Data
 Version: 1.0.1
 Authors@R: 
-    person("Hiroyuki", "Muto", , "mutopsy@omu.ac.jp", role = c("aut", "cre"))
+    person("Hiroyuki", "Muto", , "mutopsy@omu.ac.jp", 
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-0007-6019"))
 Description: Computes the center of gravity (COG) of character-like binary images using three different methods. This package provides functions for estimating stroke-based, contour-based, and potential energy-based COG. It is useful for analyzing glyph structure in areas such as visual cognition research and font development.
-License: GPL-3 | file LICENSE
+License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/mutopsy/coglyphr, https://mutopsy.github.io/coglyphr/
+BugReports: https://github.com/mutopsy/coglyphr/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Depends: R (>= 4.4.0), imager, dplyr, sp
+Depends: R (>= 4.4.0)
+Imports: imager, dplyr, sp
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0)

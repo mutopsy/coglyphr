@@ -64,7 +64,7 @@
 #'
 #' @importFrom imager load.image
 #' @importFrom sp point.in.polygon
-#' @import dplyr
+#' @importFrom dplyr mutate if_else filter select slice bind_rows summarise n
 #' @export
 
 cog_contour <- function(img, origin = c("bottomleft", "topleft")){

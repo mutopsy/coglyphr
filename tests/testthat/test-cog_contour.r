@@ -21,7 +21,7 @@ test_that("cog_contour given a one-channel image file returns correct structure"
     img <- imager::load.image(inputs_files[i])
 
     # Convert image to grayscale
-    n_ch <- spectrum(img)
+    n_ch <- imager::spectrum(img)
 
     if (n_ch == 3 || n_ch == 4) {
       r <- imager::R(img)

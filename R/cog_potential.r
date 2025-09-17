@@ -76,7 +76,7 @@
 #'
 #' @importFrom imager load.image
 #' @importFrom sp point.in.polygon
-#' @import dplyr
+#' @importFrom dplyr mutate if_else filter select slice bind_rows summarise
 #' @export
 
 cog_potential <- function(img, origin = c("bottomleft", "topleft")){

@@ -57,7 +57,7 @@
 #' }
 #'
 #' @importFrom imager load.image
-#' @import dplyr
+#' @importFrom dplyr mutate if_else filter summarise n select
 #' @export
 
 
