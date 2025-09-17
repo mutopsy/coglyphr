@@ -1,22 +1,18 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://github.com/mutopsy/coglyphr/404.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/authors.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/index.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/LICENSE-text.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/news/index.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/COG_contour.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/cog_contour2.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/COG_potential.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/cog_potential2.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/COG_stroke.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/cog_stroke2.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/contourCOG.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/draw_contour.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/draw_potential.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/draw_stroke.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/hello.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/img_A.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/img_B.html</loc></url>
-<url><loc>https://github.com/mutopsy/coglyphr/reference/index.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/404.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/authors.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/extra-header.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/index.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/LICENSE-text.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/news/index.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/cog_contour.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/cog_potential.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/cog_stroke.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/draw_contour.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/draw_potential.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/draw_stroke.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/img_A.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/img_B.html</loc></url>
+<url><loc>https://mutopsy.github.io/coglyphr/reference/index.html</loc></url>
 </urlset>
 

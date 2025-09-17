@@ -1,3 +1,10 @@
 ^develop/
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^paper$
+^paper/.*$
+^\.github$
+^cran-comments\.md$
+^README\.Rmd$

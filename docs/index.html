@@ -13,6 +13,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Compute Glyph Centers of Gravity from Image Data">
 <meta name="description" content="Computes the center of gravity (COG) of character-like binary images using three different methods. This package provides functions for estimating stroke-based, contour-based, and potential energy-based COG. It is useful for analyzing glyph structure in areas such as visual cognition research and font development.">
 <meta property="og:description" content="Computes the center of gravity (COG) of character-like binary images using three different methods. This package provides functions for estimating stroke-based, contour-based, and potential energy-based COG. It is useful for analyzing glyph structure in areas such as visual cognition research and font development.">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +39,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="nav-link" href="https://github.com/mutopsy/coglyphr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mutopsy/coglyphr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -61,7 +62,7 @@
 </li>
 <li>Potential energy-based COG (<code>cog_potential</code>), based on the method proposed by Kotani and colleagues (2006)</li>
 </ul>
-<p>For details on each function, refer to <a href="https://mutopsy.github.io/coglyphr/reference/" class="external-link">the function references</a>.</p>
+<p>For details on each function, refer to <a href="https://mutopsy.github.io/coglyphr/reference/">the function references</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -88,18 +89,18 @@
 </h2>
 <p>After installation, you can load this package using the <code>library</code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mutopsy/coglyphr">coglyphr</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mutopsy/coglyphr" class="external-link">coglyphr</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="version-history">Version History<a class="anchor" aria-label="anchor" href="#version-history"></a>
 </h2>
-<p>See the <a href="https://mutopsy.github.io/coglyphr/news/" class="external-link">Changelog on pkgdown site</a> for the full changelog.</p>
+<p>See the <a href="https://mutopsy.github.io/coglyphr/news/">Changelog on pkgdown site</a> for the full changelog.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <ul>
-<li>Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. Memoirs of Shonan Institute of Technology, 45(1), 23–33. <a href="https://shonan-it.repo.nii.ac.jp/?action=repository_view_main_item_detail&amp;item_id=368" class="external-link uri">https://shonan-it.repo.nii.ac.jp/?action=repository_view_main_item_detail&amp;item_id=368</a>
+<li>Kotani, A. (2011). Contour-based evaluation method of center of gravity on characters and its application to font development. Memoirs of Shonan Institute of Technology, 45(1), 23–33. <a href="https://shonan-it.repo.nii.ac.jp/records/2000243" class="external-link uri">https://shonan-it.repo.nii.ac.jp/records/2000243</a>
 </li>
 <li>Kotani, A., Asai, Y., Nakamura, Y., Otuka, M., Mituyama, Y., &amp; Onoye, T. (2004). Contour-based evaluation method of center of gravity on “LCFONT.” IPSJ SIG Technical Report, 115, 63–70. <a href="https://ipsj.ixsq.nii.ac.jp/records/36793" class="external-link uri">https://ipsj.ixsq.nii.ac.jp/records/36793</a>
 </li>
@@ -111,7 +112,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mutopsy/coglyphr/">Browse source code</a></li>
+<li><a href="https://github.com/mutopsy/coglyphr/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
 

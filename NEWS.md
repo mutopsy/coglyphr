@@ -1,3 +1,6 @@
+# coglyphr 1.0.1
+- Fix Rd math macros; remove CHECK NOTE via .Rbuildignore
+
 # coglyphr 1.0.0
 
 - First stable release of the package.

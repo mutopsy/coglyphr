@@ -16,10 +16,14 @@
 #' of the COG are computed as:
 #'
 #' \deqn{
-#' G_x = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot x) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+#'   G_x = \frac{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)\, x}{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)}
+#' }{
+#'   Gx = (sum_{x=1..w} sum_{y=1..h} p(x,y)*x) / (sum_{x=1..w} sum_{y=1..h} p(x,y))
 #' }
 #' \deqn{
-#' G_y = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot y) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+#'   G_y = \frac{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)\, y}{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)}
+#' }{
+#'   Gy = (sum_{x=1..w} sum_{y=1..h} p(x,y)*y) / (sum_{x=1..w} sum_{y=1..h} p(x,y))
 #' }
 #'
 #' where \eqn{w} and \eqn{h} denote the width and height of the image, respectively.

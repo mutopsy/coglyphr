@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,15 +88,12 @@ Specifically, let \(p(x, y)\) be an indicator function such that \(p(x, y) = 1\)
 belongs to the stroke region, and \(p(x, y) = 0\) otherwise. Then the horizontal and vertical components
 of the COG are computed as:</p>
 <p>$$
-G_x = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot x) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+  G_x = \frac{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)\, x}{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)}
 $$
 $$
-G_y = (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y) \cdot y) / (\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y))
+  G_y = \frac{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)\, y}{\sum_{x=1}^{w} \sum_{y=1}^{h} p(x, y)}
 $$</p>
 <p>where \(w\) and \(h\) denote the width and height of the image, respectively.</p>
-<p>[
-x = -b  b^2 - 4ac2a
-]</p>
     </div>
 
     <div class="section level2">
