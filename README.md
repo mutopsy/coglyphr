@@ -39,6 +39,13 @@ After installation, you can load this package using the `library` function.
 ```r
 library(coglyphr)
 ```
+## Citation
+
+A paper describing this package has been submitted to the *Journal of Open Source Software (JOSS)*.  
+Until it is formally published, please cite the following preprint:
+
+Muto, H. (2025). coglyphr: An R package to compute glyph centers of gravity from image data. Jxiv. https://doi.org/10.51094/jxiv.1531
+
 ## Version History
 
 See the [Changelog on pkgdown site](https://mutopsy.github.io/coglyphr/news/) for the full changelog.
