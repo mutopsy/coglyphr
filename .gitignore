@@ -53,5 +53,5 @@ develop/
 *.Rproj
 paper.html
 paper_files/
-
+^CRAN-SUBMISSION$
 
