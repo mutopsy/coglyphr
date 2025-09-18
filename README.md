@@ -12,6 +12,12 @@ The current version supports the following COG computation methods:
 
 For details on each function, refer to [the function references](https://mutopsy.github.io/coglyphr/reference/).
 
+## Links
+
+<!-- - CRAN: <https://CRAN.R-project.org/package=coglyphr>  -->
+- Documentation: <https://mutopsy.github.io/coglyphr/>  
+- Source code: <https://github.com/mutopsy/coglyphr>
+
 ## Installation  
 
 You can install `coglyphr` from GitHub using `devtools`:  
