@@ -1,3 +1,6 @@
+# coglyphr 1.0.3 (2025-09-18)
+- Documentation fix: replaced `\url{}` with `\doi{}` in references to conform to CRAN policies.
+
 # coglyphr 1.0.2 (2025-09-17)
 - Fixed Rd math macros.
 - Removed CHECK NOTE by updating `.Rbuildignore`.
