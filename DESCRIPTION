@@ -1,6 +1,6 @@
 Package: coglyphr
 Title: Compute Glyph Centers of Gravity from Image Data
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     person("Hiroyuki", "Muto", , "mutopsy@omu.ac.jp", 
     role = c("aut", "cre"),

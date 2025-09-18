@@ -67,7 +67,7 @@
 #' }
 #'
 #' @references
-#' Kotani, A., Tanemura, Y., Mitsuyama, Y., Asai, Y., Nakamura, Y., & Onoye, T. (2006). Potential energy-based center of gravity evaluation of characters. \emph{The Journal of the Institute of Image Electronics Engineers of Japan}, \strong{35}(4), 296–305. \url{https://doi.org/10.11371/iieej.35.296}
+#' Kotani, A., Tanemura, Y., Mitsuyama, Y., Asai, Y., Nakamura, Y., & Onoye, T. (2006). Potential energy-based center of gravity evaluation of characters. \emph{The Journal of the Institute of Image Electronics Engineers of Japan}, \strong{35}(4), 296–305. \doi{10.11371/iieej.35.296}
 #'
 #' @examples
 #' \dontrun{

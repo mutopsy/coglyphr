@@ -1,0 +1,13 @@
+citHeader("To cite coglyphr in publications, please use:")
+
+citEntry(
+  entry        = "Article",
+  title        = "coglyphr: An R package to compute glyph centers of gravity from image data",
+  author       = person("Hiroyuki", "Muto"),
+  journal      = "Jxiv",
+  year         = "2025",
+  doi          = "10.51094/jxiv.1531",
+  url          = "https://doi.org/10.51094/jxiv.1531",
+  textVersion  =
+    "Muto, H. (2025). coglyphr: An R package to compute glyph centers of gravity from image data. Jxiv. https://doi.org/10.51094/jxiv.1531"
+)
