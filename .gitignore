@@ -47,11 +47,8 @@ rsconnect/
 .Rproj.user
 
 # Others
-^coglyphr\.Rproj$
-^\.Rproj\.user$
 develop/
 *.Rproj
 paper.html
 paper_files/
-^CRAN-SUBMISSION$
-
+/CRAN-SUBMISSION
