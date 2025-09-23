@@ -13,3 +13,8 @@
 
 ## Downstream dependencies
 * None (first CRAN release).
+
+## Resubmission
+* Addressed CRAN feedback:
+  - Added method references to DESCRIPTION with <doi:...>/<https:...> format.
+  - Replaced \dontrun{} with \donttest{} and made examples executable where feasible (<5s).

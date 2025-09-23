@@ -1,3 +1,7 @@
+# coglyphr 1.0.4 (2025-09-23)
+- Added references to the DESCRIPTION field as requested by CRAN.
+- Revised function examples: replaced \dontrun{} with \donttest{} or made them executable.
+
 # coglyphr 1.0.3 (2025-09-18)
 - Documentation fix: replaced `\url{}` with `\doi{}` in references to conform to CRAN policies.
 
