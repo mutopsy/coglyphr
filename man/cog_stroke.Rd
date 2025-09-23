@@ -62,8 +62,11 @@ of the COG are computed as:
 where \eqn{w} and \eqn{h} denote the width and height of the image, respectively.
 }
 \examples{
-\dontrun{
-  cog_stroke(img_A, origin = "bottomleft")
-}
+data(img_A) # load example image from the package
+result <- cog_stroke(img_A, origin = "bottomleft")
+
+result$statistics # summary data frame
+head(result$strokes) # stroke pixel coordinates
+result$origin # image origin specification
 
 }

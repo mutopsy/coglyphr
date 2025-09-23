@@ -14,8 +14,9 @@
 #' @return An object of class \code{cimg} representing the potential field image,
 #'   optionally overlaid with COG crosshair lines.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf (identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())
+#' \donttest{
+#'   data(img_A) # load example image from the package
 #'   result <- cog_potential(img_A)
 #'   draw_potential(result, show_cog = TRUE)
 #' }

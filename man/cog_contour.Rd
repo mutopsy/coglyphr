@@ -63,9 +63,12 @@ in character analysis and font design to reflect the perceived shape of glyphs m
 than simple stroke averaging.
 }
 \examples{
-\dontrun{
-  cog_contour(img_A, origin = "bottomleft")
-}
+data(img_A) # load example image from the package
+result <- cog_contour(img_A, origin = "bottomleft")
+
+result$statistics # summary data frame
+result$points # contour polygon vertices (x, y, angle)
+result$origin # image origin specification
 
 }
 \references{

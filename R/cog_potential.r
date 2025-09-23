@@ -70,8 +70,13 @@
 #' Kotani, A., Tanemura, Y., Mitsuyama, Y., Asai, Y., Nakamura, Y., & Onoye, T. (2006). Potential energy-based center of gravity evaluation of characters. \emph{The Journal of the Institute of Image Electronics Engineers of Japan}, \strong{35}(4), 296–305. \doi{10.11371/iieej.35.296}
 #'
 #' @examples
-#' \dontrun{
-#'   cog_potential(img_A, origin = "bottomleft")
+#' \donttest{
+#'   data(img_A) # load example image from the package
+#'   result <- cog_potential(img_A, origin = "bottomleft")
+#'
+#'   result$statistics # summary data frame
+#'   head(result$potentials) # pixel coordinates with normalized potential values
+#'   result$origin     # image origin specification
 #' }
 #'
 #' @importFrom imager load.image

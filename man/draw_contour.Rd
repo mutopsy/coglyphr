@@ -25,11 +25,11 @@ Visualizes the character region enclosed by the convex polygon computed using \c
 Optionally overlays crosshair lines at the computed center of gravity (COG) to aid interpretation.
 }
 \examples{
-\dontrun{
-  result <- cog_contour(img_A)
-  draw_contour(result, show_cog = TRUE)
-}
-
+\dontshow{if ((identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+data(img_A) # load example image from the package
+result <- cog_contour(img_A)
+draw_contour(result, show_cog = TRUE)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{cog_contour}}

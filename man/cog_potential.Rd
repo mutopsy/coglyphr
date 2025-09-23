@@ -76,8 +76,13 @@ by incorporating the spatial distribution of strokes within the convex polygon,
 thereby aligning more closely with the subjective impression of a character's center.
 }
 \examples{
-\dontrun{
-  cog_potential(img_A, origin = "bottomleft")
+\donttest{
+  data(img_A) # load example image from the package
+  result <- cog_potential(img_A, origin = "bottomleft")
+
+  result$statistics # summary data frame
+  head(result$potentials) # pixel coordinates with normalized potential values
+  result$origin     # image origin specification
 }
 
 }

@@ -26,11 +26,11 @@ from \code{cog_stroke()}. Optionally overlays crosshair lines at the computed
 center of gravity (COG) position.
 }
 \examples{
-\dontrun{
-  result <- cog_stroke(img_A)
-  draw_stroke(result, show_cog = TRUE)
-}
-
+\dontshow{if ((identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+data(img_A) # load example image from the package
+result <- cog_stroke(img_A)
+draw_stroke(result, show_cog = TRUE)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{cog_stroke}}

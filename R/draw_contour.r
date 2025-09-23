@@ -13,11 +13,10 @@
 #' @return An object of class \code{cimg} representing the polygon-filled image
 #'   (with or without COG lines), which can be further used or saved.
 #'
-#' @examples
-#' \dontrun{
-#'   result <- cog_contour(img_A)
-#'   draw_contour(result, show_cog = TRUE)
-#' }
+#' @examplesIf (identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())
+#' data(img_A) # load example image from the package
+#' result <- cog_contour(img_A)
+#' draw_contour(result, show_cog = TRUE)
 #'
 #' @seealso \code{\link{cog_contour}}
 #'

@@ -58,9 +58,12 @@
 #' Kotani, A., Asai, Y., Nakamura, Y., Otuka, M., Mituyama, Y., & Onoye, T. (2004). Contour-based evaluation method of center of gravity on “LCFONT.” \emph{IPSJ SIG Technical Report}, \strong{115}, 63–70. \url{https://ipsj.ixsq.nii.ac.jp/records/36793}
 #'
 #' @examples
-#' \dontrun{
-#'   cog_contour(img_A, origin = "bottomleft")
-#' }
+#' data(img_A) # load example image from the package
+#' result <- cog_contour(img_A, origin = "bottomleft")
+#'
+#' result$statistics # summary data frame
+#' result$points # contour polygon vertices (x, y, angle)
+#' result$origin # image origin specification
 #'
 #' @importFrom imager load.image
 #' @importFrom sp point.in.polygon

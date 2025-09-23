@@ -14,11 +14,10 @@
 #' @return An object of class \code{cimg} representing the stroke image (with or without
 #'   COG lines), suitable for plotting or further manipulation.
 #'
-#' @examples
-#' \dontrun{
-#'   result <- cog_stroke(img_A)
-#'   draw_stroke(result, show_cog = TRUE)
-#' }
+#' @examplesIf (identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())
+#' data(img_A) # load example image from the package
+#' result <- cog_stroke(img_A)
+#' draw_stroke(result, show_cog = TRUE)
 #'
 #' @seealso \code{\link{cog_stroke}}
 #'

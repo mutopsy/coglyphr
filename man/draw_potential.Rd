@@ -26,11 +26,13 @@ Each pixel's potential is shown as grayscale intensity, where darker pixels indi
 Optionally overlays crosshair lines at the computed COG to indicate its position.
 }
 \examples{
-\dontrun{
+\dontshow{if ((identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
+  data(img_A) # load example image from the package
   result <- cog_potential(img_A)
   draw_potential(result, show_cog = TRUE)
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{cog_potential}}
