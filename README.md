@@ -14,13 +14,19 @@ For details on each function, refer to [the function references](https://mutopsy
 
 ## Links
 
-<!-- - CRAN: <https://CRAN.R-project.org/package=coglyphr>  -->
+- CRAN: <https://CRAN.R-project.org/package=coglyphr>
 - Documentation: <https://mutopsy.github.io/coglyphr/>  
 - Source code: <https://github.com/mutopsy/coglyphr>
 
 ## Installation  
 
-You can install `coglyphr` from GitHub using `devtools`:  
+The stable release of `coglyphr` is available on [CRAN](https://CRAN.R-project.org/package=coglyphr):  
+
+```r
+install.packages("coglyphr")
+```
+
+You can also install the development version from GitHub:  
 
 ```r
 # Install devtools if not already installed
