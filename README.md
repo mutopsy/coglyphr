@@ -53,8 +53,8 @@ library(coglyphr)
 ```
 ## Citation
 
-A paper describing this package has been submitted to the *Journal of Open Source Software (JOSS)*.  
-Until it is formally published, please cite the following preprint:
+Please cite the following preprint when using this package.
+Although this work is released as a preprint, it represents the final version and will not be submitted elsewhere.
 
 Muto, H. (2025). coglyphr: An R package to compute glyph centers of gravity from image data. Jxiv. https://doi.org/10.51094/jxiv.1531
 
