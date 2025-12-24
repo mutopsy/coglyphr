@@ -14,13 +14,19 @@ For details on each function, refer to [the function references](https://mutopsy
 
 ## Links
 
-<!-- - CRAN: <https://CRAN.R-project.org/package=coglyphr>  -->
+- CRAN: <https://CRAN.R-project.org/package=coglyphr>
 - Documentation: <https://mutopsy.github.io/coglyphr/>  
 - Source code: <https://github.com/mutopsy/coglyphr>
 
 ## Installation  
 
-You can install `coglyphr` from GitHub using `devtools`:  
+The stable release of `coglyphr` is available on [CRAN](https://CRAN.R-project.org/package=coglyphr):  
+
+```r
+install.packages("coglyphr")
+```
+
+You can also install the development version from GitHub:  
 
 ```r
 # Install devtools if not already installed
@@ -32,11 +38,16 @@ devtools::install_github("mutopsy/coglyphr")
 
 ## Dependencies  
 
-This package requires:  
-* R (>= 4.4.0)  
-* `dplyr`  
-* `imager`  
-* `sp`
+### Required
+- R (>= 4.4.0)
+- dplyr
+- sp
+
+### Optional
+- imager  
+  Required only when using image objects of class `cimg` or when returning results as `cimg`.
+- png, jpeg, tiff, bmp  
+  Required only for reading image files of the corresponding formats.
 
 ## Usage
 
@@ -47,8 +58,8 @@ library(coglyphr)
 ```
 ## Citation
 
-A paper describing this package has been submitted to the *Journal of Open Source Software (JOSS)*.  
-Until it is formally published, please cite the following preprint:
+Please cite the following preprint when using this package.
+Although this work is released as a preprint, it represents the final version and will not be submitted elsewhere.
 
 Muto, H. (2025). coglyphr: An R package to compute glyph centers of gravity from image data. Jxiv. https://doi.org/10.51094/jxiv.1531
 
