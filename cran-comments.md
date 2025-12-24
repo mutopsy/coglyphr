@@ -1,20 +1,15 @@
 ## Test environments
-* Local: Windows 11, R 4.4.3, Rtools, x86_64
+* Local: Windows 11, R 4.4.3
 * win-builder: R-release
+* win-builder: R-devel
 
 ## R CMD check results
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-## Notes
-* "CRAN incoming feasibility" shows:
-  - Maintainer: 'Hiroyuki Muto <mutopsy@omu.ac.jp>'
-  - New submission
-  This is the expected informational note for initial CRAN submissions.
+## Changes in this update
+* Refactored image I/O to make the imager package optional rather than mandatory.
+* Declared optional image-format dependencies (png, jpeg, tiff, bmp) in Suggests.
+* Ensured all examples run without optional dependencies installed.
 
 ## Downstream dependencies
-* None (first CRAN release).
-
-## Resubmission
-* Addressed CRAN feedback:
-  - Added method references to DESCRIPTION with <doi:...>/<https:...> format.
-  - Replaced \dontrun{} with \donttest{} and made examples executable where feasible (<5s).
+* None.
