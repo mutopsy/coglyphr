@@ -1,6 +1,6 @@
 Package: coglyphr
 Title: Compute Glyph Centers of Gravity from Image Data
-Version: 1.0.4
+Version: 1.1.0
 Authors@R: 
     person("Hiroyuki", "Muto", , "mutopsy@omu.ac.jp", 
     role = c("aut", "cre"),
@@ -13,8 +13,13 @@ BugReports: https://github.com/mutopsy/coglyphr/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: R (>= 4.4.0)
-Imports: imager, dplyr, sp
+Imports: dplyr, sp
 LazyData: true
-Suggests: 
+Suggests:
+    imager,
+    png,
+    jpeg,
+    tiff,
+    bmp,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

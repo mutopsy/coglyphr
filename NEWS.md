@@ -1,3 +1,6 @@
+# coglyphr 1.1.0 (2025-12-24)
+- Removed hard dependency on the 'imager' package; it is now optional.
+
 # coglyphr 1.0.4 (2025-09-23)
 - Added references to the DESCRIPTION field as requested by CRAN.
 - Revised function examples: replaced `\dontrun{}` with `\donttest{}` or made them executable.
