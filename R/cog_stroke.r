@@ -28,9 +28,14 @@
 #'
 #' where \eqn{w} and \eqn{h} denote the width and height of the image, respectively.
 #'
-#' @param img An image input, either a file path to an image file (e.g., PNG, JPEG),
-#'   or a \code{cimg} object from the \pkg{imager} package. The image should be in binary form,
-#'   with foreground (glyph) values not equal to 1 and background values equal to 1.
+#' @param img An image input. Supported inputs are:
+#'   \itemize{
+#'     \item A file path to an image file (e.g., PNG, JPEG, TIFF, BMP).
+#'     \item A \code{cimg} object from the \pkg{imager} package (if \pkg{imager} is installed).
+#'     \item A numeric matrix \code{[h, w]} (grayscale) or numeric array \code{[h, w, ch]} (color).
+#'   }
+#'   The image should be binary in the sense that background pixels take the value 1 (pure white),
+#'   and all other pixels are treated as stroke (foreground) pixels.
 #' @param origin A character string indicating the location of the image origin.
 #'   Use \code{"bottomleft"} (default) if the y-axis increases upward (Cartesian),
 #'   or \code{"topleft"} if the y-axis increases downward (as in image arrays).
@@ -49,6 +54,7 @@
 #'     }
 #'   }
 #'   \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke region (i.e., non-white pixels).}
+#'   \item{\code{origin}}{The origin specification used for the returned coordinates.}
 #' }
 #'
 #' @examples
@@ -59,8 +65,7 @@
 #' head(result$strokes) # stroke pixel coordinates
 #' result$origin # image origin specification
 #'
-#' @importFrom imager load.image
-#' @importFrom dplyr mutate if_else filter summarise n select
+#' @importFrom dplyr mutate filter summarise n select
 #' @export
 
 
@@ -75,50 +80,15 @@ cog_stroke <- function(img, origin = c("bottomleft", "topleft")){
   }
 
   # Load image ------------------------
-
-  if (is.character(img) && length(img) == 1 && file.exists(img)) {
-    im <- imager::load.image(img)
-  } else if (inherits(img, "cimg")) {
-    im <- img
-  } else {
-    stop("`img` must be either a file path or a valid image object.")
-  }
-
-  # Binarize image  ------------------------
-
-  n_ch <- imager::spectrum(im)
-
-  if (n_ch == 3 || n_ch == 4) {
-    r <- imager::R(im)
-    g <- imager::G(im)
-    b <- imager::B(im)
-
-    white_mask <- (r == 1) & (g == 1) & (b == 1)
-    im <- imager::as.cimg(white_mask * 1)
-
-  } else if (n_ch == 1) {
-    im <- im |>
-      as.data.frame() |>
-      mutate(value = if_else(value == 1, 1, 0)) |>
-      as.cimg(dim = c(dim(im)))
-
-  } else {
-    stop("Cannot convert image: unsupported number of channels (must be 1, 3, or 4).")
-  }
-
-  # Transform to data frame format ------------------------
-
-  im.dat <- im |> as.data.frame()
+  im.dat <- coglyphr_load_image(img)
+  size_original <- c(max(im.dat$x), max(im.dat$y))
 
   # Extract the non-white region ------------------------
-
   im.dat.stroke <- im.dat |>
     dplyr::filter(value != 1) |>
     dplyr::mutate(value = 0)
 
   # Margin ------------------------
-
-  size_original <- dim(im)[1:2]
 
   margin <- im.dat.stroke |>
     dplyr::summarise(
