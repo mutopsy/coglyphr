@@ -96,3 +96,5 @@ test_that("cog_stroke matches expected statistics", {
   expect_equal(unlist(stats), unlist(expected[,-1]), tolerance = 1e-6)
 
 })
+
+

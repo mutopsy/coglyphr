@@ -7,9 +7,14 @@
 cog_stroke(img, origin = c("bottomleft", "topleft"))
 }
 \arguments{
-\item{img}{An image input, either a file path to an image file (e.g., PNG, JPEG),
-or a \code{cimg} object from the \pkg{imager} package. The image should be in binary form,
-with foreground (glyph) values not equal to 1 and background values equal to 1.}
+\item{img}{An image input. Supported inputs are:
+\itemize{
+\item A file path to an image file (e.g., PNG, JPEG, TIFF, BMP).
+\item A \code{cimg} object from the \pkg{imager} package (if \pkg{imager} is installed).
+\item A numeric matrix \code{[h, w]} (grayscale) or numeric array \code{[h, w, ch]} (color).
+}
+The image should be binary in the sense that background pixels take the value 1 (pure white),
+and all other pixels are treated as stroke (foreground) pixels.}
 
 \item{origin}{A character string indicating the location of the image origin.
 Use \code{"bottomleft"} (default) if the y-axis increases upward (Cartesian),
@@ -30,6 +35,7 @@ A list containing:
 }
 }
 \item{\code{strokes}}{A data frame of (x, y) coordinates representing the stroke region (i.e., non-white pixels).}
+\item{\code{origin}}{The origin specification used for the returned coordinates.}
 }
 }
 \description{

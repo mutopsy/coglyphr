@@ -4,7 +4,7 @@
 \alias{draw_contour}
 \title{Visualize Contour-Based Region and Center of Gravity (COG)}
 \usage{
-draw_contour(lst, show_cog = TRUE, plot_image = TRUE)
+draw_contour(lst, show_cog = TRUE, plot_image = TRUE, cimg = TRUE)
 }
 \arguments{
 \item{lst}{A list returned by \code{\link{cog_contour}}, containing
@@ -15,20 +15,28 @@ red lines through the COG to indicate its location.}
 
 \item{plot_image}{Logical. If \code{TRUE} (default), plots the reconstructed image. If \code{FALSE},
 returns the image object without displaying it.}
+
+\item{cimg}{Logical. If \code{TRUE} (default) and \pkg{imager} is available, returns
+a \code{cimg} object. If \code{FALSE}, always returns a raster object.}
 }
 \value{
-An object of class \code{cimg} representing the polygon-filled image
-(with or without COG lines), which can be further used or saved.
+If \code{cimg = TRUE} and \pkg{imager} is installed, returns a \code{cimg}
+object. Otherwise, returns a raster object (class \code{"raster"}).
 }
 \description{
 Visualizes the character region enclosed by the convex polygon computed using \code{\link{cog_contour}}.
 Optionally overlays crosshair lines at the computed center of gravity (COG) to aid interpretation.
 }
+\details{
+By default (\code{cimg = TRUE}), the function returns a \code{cimg} object if the
+\pkg{imager} package is available. If \pkg{imager} is not installed or if
+\code{cimg = FALSE}, a base R raster object created by \code{as.raster()} is returned.
+}
 \examples{
 \dontshow{if ((identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(img_A) # load example image from the package
 result <- cog_contour(img_A)
-draw_contour(result, show_cog = TRUE)
+draw_contour(result, show_cog = TRUE, cimg = FALSE)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

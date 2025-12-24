@@ -2,7 +2,7 @@ pandoc: '3.4'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-09-23T08:31Z
+last_built: 2025-12-24T08:28Z
 urls:
   reference: https://mutopsy.github.io/coglyphr/reference
   article: https://mutopsy.github.io/coglyphr/articles

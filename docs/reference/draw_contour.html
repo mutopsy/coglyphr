@@ -9,7 +9,7 @@ Optionally overlays crosshair lines at the computed center of gravity (COG) to a
 
     <a class="navbar-brand me-2" href="../index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@ Optionally overlays crosshair lines at the computed center of gravity (COG) to a
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">draw_contour</span><span class="op">(</span><span class="va">lst</span>, show_cog <span class="op">=</span> <span class="cn">TRUE</span>, plot_image <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">draw_contour</span><span class="op">(</span><span class="va">lst</span>, show_cog <span class="op">=</span> <span class="cn">TRUE</span>, plot_image <span class="op">=</span> <span class="cn">TRUE</span>, cimg <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,11 +63,22 @@ red lines through the COG to indicate its location.</p></dd>
 <dd><p>Logical. If <code>TRUE</code> (default), plots the reconstructed image. If <code>FALSE</code>,
 returns the image object without displaying it.</p></dd>
 
+
+<dt id="arg-cimg">cimg<a class="anchor" aria-label="anchor" href="#arg-cimg"></a></dt>
+<dd><p>Logical. If <code>TRUE</code> (default) and <span class="pkg">imager</span> is available, returns
+a <code>cimg</code> object. If <code>FALSE</code>, always returns a raster object.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>cimg</code> representing the polygon-filled image
-(with or without COG lines), which can be further used or saved.</p>
+    <p>If <code>cimg = TRUE</code> and <span class="pkg">imager</span> is installed, returns a <code>cimg</code>
+object. Otherwise, returns a raster object (class <code>"raster"</code>).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>By default (<code>cimg = TRUE</code>), the function returns a <code>cimg</code> object if the
+<span class="pkg">imager</span> package is available. If <span class="pkg">imager</span> is not installed or if
+<code>cimg = FALSE</code>, a base R raster object created by <code><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster()</a></code> is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -78,9 +89,8 @@ returns the image object without displaying it.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">img_A</span><span class="op">)</span> <span class="co"># load example image from the package</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="cog_contour.html">cog_contour</a></span><span class="op">(</span><span class="va">img_A</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">draw_contour</span><span class="op">(</span><span class="va">result</span>, show_cog <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="draw_contour-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Image. Width: 500 pix Height: 500 pix Depth: 1 Colour channels: 3 </span>
+<span class="r-in"><span><span class="fu">draw_contour</span><span class="op">(</span><span class="va">result</span>, show_cog <span class="op">=</span> <span class="cn">TRUE</span>, cimg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in draw_contour(result, show_cog = TRUE, cimg = FALSE):</span> unused argument (cimg = FALSE)</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

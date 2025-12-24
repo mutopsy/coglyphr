@@ -4,33 +4,42 @@
 \alias{draw_potential}
 \title{Visualize Potential-Based Center of Gravity (COG) and Potential Field}
 \usage{
-draw_potential(lst, show_cog = TRUE, plot_image = TRUE)
+draw_potential(lst, show_cog = TRUE, plot_image = TRUE, cimg = TRUE)
 }
 \arguments{
-\item{lst}{A list returned by \code{\link{cog_potential}}, containing
-a data frame of normalized potentials and computed statistics.}
+\item{lst}{A list returned by \code{\link{cog_potential}}, containing a data frame of
+normalized potentials and computed statistics.}
 
 \item{show_cog}{Logical. If \code{TRUE} (default), draws horizontal and vertical
 red lines through the COG.}
 
-\item{plot_image}{Logical. If \code{TRUE} (default), plots the generated image. If \code{FALSE},
-returns the image object without displaying it.}
+\item{plot_image}{Logical. If \code{TRUE} (default), plots the generated image.
+If \code{FALSE}, returns the image object without displaying it.}
+
+\item{cimg}{Logical. If \code{TRUE} (default) and \pkg{imager} is available, returns
+a \code{cimg} object. If \code{FALSE}, always returns a raster object.}
 }
 \value{
-An object of class \code{cimg} representing the potential field image,
-optionally overlaid with COG crosshair lines.
+If \code{cimg = TRUE} and \pkg{imager} is installed, returns a \code{cimg}
+object. Otherwise, returns a raster object (class \code{"raster"}).
 }
 \description{
-Visualizes the normalized potential field and center of gravity (COG) computed by \code{\link{cog_potential}}.
-Each pixel's potential is shown as grayscale intensity, where darker pixels indicate higher potential.
-Optionally overlays crosshair lines at the computed COG to indicate its position.
+Visualizes the normalized potential field and center of gravity (COG) computed by
+\code{\link{cog_potential}}. Each pixel's potential is shown as grayscale intensity,
+where darker pixels indicate higher potential. Optionally overlays crosshair lines
+at the computed COG to indicate its position.
+}
+\details{
+By default (\code{cimg = TRUE}), the function returns a \code{cimg} object if the
+\pkg{imager} package is available. If \pkg{imager} is not installed or if
+\code{cimg = FALSE}, a base R raster object created by \code{as.raster()} is returned.
 }
 \examples{
 \dontshow{if ((identical(Sys.getenv("IN_PKGDOWN"), "true") || interactive())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
-  data(img_A) # load example image from the package
+  data(img_A)
   result <- cog_potential(img_A)
-  draw_potential(result, show_cog = TRUE)
+  draw_potential(result, show_cog = TRUE, cimg = FALSE)
 }
 \dontshow{\}) # examplesIf}
 }

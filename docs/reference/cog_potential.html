@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">coglyphr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,9 +47,11 @@
 
 
 <dl><dt id="arg-img">img<a class="anchor" aria-label="anchor" href="#arg-img"></a></dt>
-<dd><p>An image input, either a file path to an image file (e.g., PNG, JPEG),
-or a <code>cimg</code> object from the <span class="pkg">imager</span> package. The image should be in binary form,
-with foreground (glyph) values not equal to 1 and background values equal to 1.</p></dd>
+<dd><p>An image input. Supported inputs are:</p><ul><li><p>A file path to an image file (e.g., PNG, JPEG, TIFF, BMP).</p></li>
+<li><p>A <code>cimg</code> object from the <span class="pkg">imager</span> package (if <span class="pkg">imager</span> is installed).</p></li>
+<li><p>A numeric matrix <code>[h, w]</code> (grayscale) or numeric array <code>[h, w, ch]</code> (color).</p></li>
+</ul><p>The image should be binary in the sense that background pixels take the value 1 (pure white),
+and all other pixels are treated as stroke (foreground) pixels.</p></dd>
 
 
 <dt id="arg-origin">origin<a class="anchor" aria-label="anchor" href="#arg-origin"></a></dt>

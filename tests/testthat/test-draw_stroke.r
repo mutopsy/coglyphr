@@ -1,51 +1,49 @@
-test_that("draw_stroke returns valid cimg object with origin = bottomleft", {
+test_that("draw_stroke returns valid raster object with origin = bottomleft", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
-  for(i in 1:length(inputs_files)){
-    img <- imager::load.image(inputs_files[i])
-    result<- cog_stroke(img, origin = "bottomleft")
-    out <- draw_stroke(result, plot_image = FALSE)
+  for (i in seq_along(inputs_files)) {
+    # Use file path (no imager dependency)
+    img <- inputs_files[i]
+    result <- cog_stroke(img, origin = "bottomleft")
+    out <- draw_stroke(result, plot_image = FALSE, cimg = FALSE)
 
-    # Check that the output is a cimg object (image object from imager)
-    expect_s3_class(out, "cimg")
+    # raster object (as.raster)
+    expect_true(inherits(out, "raster"))
 
-    # Verify the image dimensions match the expected values
+    # Verify dimensions: raster is a matrix of colors [h, w]
     stats <- result$statistics
-    expect_equal(dim(out)[1], stats$width_original)   # width
-    expect_equal(dim(out)[2], stats$height_original)  # height
+    expect_equal(ncol(out), stats$width_original)
+    expect_equal(nrow(out), stats$height_original)
 
-    # Ensure pixel values are binary (0 or 1)
-    expect_true(all(out[] %in% c(0, 1)))
+    # Ensure pixels are only white/black/red (background/stroke/cog lines)
+    vals <- unique(as.vector(out))
+    expect_true(all(vals %in% c("#FFFFFF", "#000000", "#FF0000")))
   }
-
 })
 
-test_that("draw_stroke returns valid cimg object with origin = topleft", {
+test_that("draw_stroke returns valid raster object with origin = topleft", {
   inputs_dir <- testthat::test_path("images")
   inputs_files <- list.files(inputs_dir, full.names = TRUE)
 
-  for(i in 1:length(inputs_files)){
-    img <- imager::load.image(inputs_files[i])
-    result<- cog_stroke(img, origin = "topleft")
-    out <- draw_stroke(result, plot_image = FALSE)
+  for (i in seq_along(inputs_files)) {
+    img <- inputs_files[i]
+    result <- cog_stroke(img, origin = "topleft")
+    out <- draw_stroke(result, plot_image = FALSE, cimg = FALSE)
 
-    # Check that the output is a cimg object (image object from imager)
-    expect_s3_class(out, "cimg")
+    expect_true(inherits(out, "raster"))
 
-    # Verify the image dimensions match the expected values
     stats <- result$statistics
-    expect_equal(dim(out)[1], stats$width_original)   # width
-    expect_equal(dim(out)[2], stats$height_original)  # height
+    expect_equal(ncol(out), stats$width_original)
+    expect_equal(nrow(out), stats$height_original)
 
-    # Ensure pixel values are binary (0 or 1)
-    expect_true(all(out[] %in% c(0, 1)))
+    vals <- unique(as.vector(out))
+    expect_true(all(vals %in% c("#FFFFFF", "#000000", "#FF0000")))
   }
-
 })
 
 test_that("draw_stroke returns an error when given an input of unmatched type", {
-  img <- testthat::test_path("images", c("A_1.png"))
+  img <- testthat::test_path("images", "A_1.png")
   expect_error(cog_contour(img) |> draw_stroke())
   expect_error(cog_potential(img) |> draw_stroke())
 })
